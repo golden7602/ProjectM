@@ -1,0 +1,455 @@
+2020-06-04 19:45:08,116 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-04') ORDER BY v_archives.`issuing_date` DESC
+2020-06-04 19:45:09,735 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
+Traceback (most recent call last):
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
+    cur.execute(sql)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
+Stack (most recent call last):
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
+    cli.main()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
+    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
+    pkg_name=pkg_name, script_name=fname)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
+    mod_name, mod_spec, pkg_name, script_name)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "e:\ProjectM\project_m.py", line 25, in <module>
+    app.show()
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
+    sys_exit(self.__app.exec_())
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
+    self.__getStackedWidget(item.jpData)
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
+    frm = form_createor[self.menu_id](self)
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
+    self.actionClick()
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
+    self.dataInfo = JPTabelFieldInfo(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
+    super().__init__(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
+    flds, data = db.getFeildsInfoAndData(sql)
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
+    sql), exc_info=True, stack_info=True)
+2020-06-04 19:46:34,625 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
+Traceback (most recent call last):
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
+    cur.execute(sql)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
+Stack (most recent call last):
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
+    cli.main()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
+    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
+    pkg_name=pkg_name, script_name=fname)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
+    mod_name, mod_spec, pkg_name, script_name)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "e:\ProjectM\project_m.py", line 25, in <module>
+    app.show()
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
+    sys_exit(self.__app.exec_())
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
+    self.__getStackedWidget(item.jpData)
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
+    frm = form_createor[self.menu_id](self)
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
+    self.actionClick()
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
+    self.dataInfo = JPTabelFieldInfo(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
+    super().__init__(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
+    flds, data = db.getFeildsInfoAndData(sql)
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
+    sql), exc_info=True, stack_info=True)
+2020-06-05 09:20:39,627 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:23:12,606 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
+Traceback (most recent call last):
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
+    cur.execute(sql)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
+Stack (most recent call last):
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
+    cli.main()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
+    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
+    pkg_name=pkg_name, script_name=fname)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
+    mod_name, mod_spec, pkg_name, script_name)
+  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "e:\ProjectM\project_m.py", line 25, in <module>
+    app.show()
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
+    sys_exit(self.__app.exec_())
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
+    self.__getStackedWidget(item.jpData)
+  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
+    frm = form_createor[self.menu_id](self)
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
+    self.actionClick()
+  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
+    self.dataInfo = JPTabelFieldInfo(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
+    super().__init__(sql)
+  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
+    flds, data = db.getFeildsInfoAndData(sql)
+  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
+    sql), exc_info=True, stack_info=True)
+2020-06-05 09:26:01,766 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:48:02,730 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:48:08,701 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖状%' or archive_describe like '%奖状%' or issuing like '%奖状%' or fTitle like '%奖状%' or title like '%奖状%' or key_words like '%奖状%' or involve_project like '%奖状%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:49:14,260 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%突出%' or archive_describe like '%突出%' or issuing like '%突出%' or fTitle like '%突出%' or title like '%突出%' or key_words like '%突出%' or involve_project like '%突出%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:50:40,180 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%一业%' or archive_describe like '%一业%' or issuing like '%一业%' or fTitle like '%一业%' or title like '%一业%' or key_words like '%一业%' or involve_project like '%一业%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:50:44,805 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%工业%' or archive_describe like '%工业%' or issuing like '%工业%' or fTitle like '%工业%' or title like '%工业%' or key_words like '%工业%' or involve_project like '%工业%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 09:56:22,062 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%97.5%' or archive_describe like '%97.5%' or issuing like '%97.5%' or fTitle like '%97.5%' or title like '%97.5%' or key_words like '%97.5%' or involve_project like '%97.5%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:09:06,101 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%97.5%' or archive_describe like '%97.5%' or issuing like '%97.5%' or fTitle like '%97.5%' or title like '%97.5%' or key_words like '%97.5%' or involve_project like '%97.5%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:09:15,941 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%工业产值%' or archive_describe like '%工业产值%' or issuing like '%工业产值%' or fTitle like '%工业产值%' or title like '%工业产值%' or key_words like '%工业产值%' or involve_project like '%工业产值%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:09:23,812 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:09:46,657 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:09:54,048 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:10:06,869 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:11:28,188 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:12:59,877 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' ) ORDER BY v_archives.`issuing_date` DESC
+2020-06-05 10:33:15,459 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=2257：
+2020-06-05 10:33:15,473 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2257
+2020-06-05 11:02:03,040 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=2257：
+2020-06-05 11:02:03,084 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2257
+2020-06-05 11:03:50,450 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%包含文件%' or archive_describe like '%包含文件%' or issuing like '%包含文件%' or fTitle like '%包含文件%' or title like '%包含文件%' or key_words like '%包含文件%' or involve_project like '%包含文件%' 
+2020-06-05 12:29:12,575 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`is_task_source`=1 And `title` like '%学校%'：
+2020-06-05 12:29:12,587 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`is_task_source`=1 And `title` like '%学校%'
+2020-06-05 12:34:36,235 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`>1484：
+2020-06-05 12:34:36,258 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`>1484
+2020-06-05 12:34:47,957 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=1484：
+2020-06-05 12:34:47,966 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=1484
+2020-06-05 12:45:48,946 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 12:46:24,419 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archives_pk`=2：
+2020-06-05 12:46:24,427 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2
+2020-06-05 13:38:17,915 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 13:38:24,749 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%党委纪要%' or archive_describe like '%党委纪要%' or issuing like '%党委纪要%' or fTitle like '%党委纪要%' or title like '%党委纪要%' or key_words like '%党委纪要%' or involve_project like '%党委纪要%' 
+2020-06-05 13:39:05,781 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`issuing_date`<'2020-04-05' And `issuing_date`>'2020-02-05'：
+2020-06-05 13:39:05,800 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`issuing_date`<'2020-04-05' And `issuing_date`>'2020-02-05'
+2020-06-05 13:39:50,117 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`fTitle`='集团党委会会议纪要'：
+2020-06-05 13:39:50,150 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`fTitle`='集团党委会会议纪要'
+2020-06-05 14:09:30,005 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archive_describe` like '%（关键字：%'：
+2020-06-05 14:09:30,031 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archive_describe` like '%（关键字：%'
+2020-06-05 14:18:15,672 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%会议纪要%' or archive_describe like '%会议纪要%' or issuing like '%会议纪要%' or fTitle like '%会议纪要%' or title like '%会议纪要%' or key_words like '%会议纪要%' or involve_project like '%会议纪要%' 
+2020-06-05 14:22:04,517 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件LENGTH(`archive_describe`)>=20：
+2020-06-05 14:22:04,572 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：LENGTH(`archive_describe`)>=20
+2020-06-05 14:22:36,490 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 14:22:37,803 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 14:30:06,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 14:31:45,045 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' 
+2020-06-05 16:07:27,866 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:07:54,688 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:18:48,697 - DEBUG - Image.py line[:404] - Importing BlpImagePlugin
+2020-06-05 16:18:48,701 - DEBUG - Image.py line[:404] - Importing BmpImagePlugin
+2020-06-05 16:18:48,702 - DEBUG - Image.py line[:404] - Importing BufrStubImagePlugin
+2020-06-05 16:18:48,706 - DEBUG - Image.py line[:404] - Importing CurImagePlugin
+2020-06-05 16:18:48,709 - DEBUG - Image.py line[:404] - Importing DcxImagePlugin
+2020-06-05 16:18:48,716 - DEBUG - Image.py line[:404] - Importing DdsImagePlugin
+2020-06-05 16:18:48,721 - DEBUG - Image.py line[:404] - Importing EpsImagePlugin
+2020-06-05 16:18:48,810 - DEBUG - Image.py line[:404] - Importing FitsStubImagePlugin
+2020-06-05 16:18:48,813 - DEBUG - Image.py line[:404] - Importing FliImagePlugin
+2020-06-05 16:18:48,816 - DEBUG - Image.py line[:404] - Importing FpxImagePlugin
+2020-06-05 16:18:48,825 - DEBUG - Image.py line[:407] - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2020-06-05 16:18:48,826 - DEBUG - Image.py line[:404] - Importing FtexImagePlugin
+2020-06-05 16:18:48,830 - DEBUG - Image.py line[:404] - Importing GbrImagePlugin
+2020-06-05 16:18:48,833 - DEBUG - Image.py line[:404] - Importing GifImagePlugin
+2020-06-05 16:18:48,834 - DEBUG - Image.py line[:404] - Importing GribStubImagePlugin
+2020-06-05 16:18:48,840 - DEBUG - Image.py line[:404] - Importing Hdf5StubImagePlugin
+2020-06-05 16:18:48,844 - DEBUG - Image.py line[:404] - Importing IcnsImagePlugin
+2020-06-05 16:18:48,852 - DEBUG - Image.py line[:404] - Importing IcoImagePlugin
+2020-06-05 16:18:48,858 - DEBUG - Image.py line[:404] - Importing ImImagePlugin
+2020-06-05 16:18:48,865 - DEBUG - Image.py line[:404] - Importing ImtImagePlugin
+2020-06-05 16:18:48,870 - DEBUG - Image.py line[:404] - Importing IptcImagePlugin
+2020-06-05 16:18:48,874 - DEBUG - Image.py line[:404] - Importing JpegImagePlugin
+2020-06-05 16:18:48,875 - DEBUG - Image.py line[:404] - Importing Jpeg2KImagePlugin
+2020-06-05 16:18:48,876 - DEBUG - Image.py line[:404] - Importing McIdasImagePlugin
+2020-06-05 16:18:48,879 - DEBUG - Image.py line[:404] - Importing MicImagePlugin
+2020-06-05 16:18:48,891 - DEBUG - Image.py line[:407] - Image: failed to import MicImagePlugin: No module named 'olefile'
+2020-06-05 16:18:48,892 - DEBUG - Image.py line[:404] - Importing MpegImagePlugin
+2020-06-05 16:18:48,896 - DEBUG - Image.py line[:404] - Importing MpoImagePlugin
+2020-06-05 16:18:48,900 - DEBUG - Image.py line[:404] - Importing MspImagePlugin
+2020-06-05 16:18:48,903 - DEBUG - Image.py line[:404] - Importing PalmImagePlugin
+2020-06-05 16:18:48,909 - DEBUG - Image.py line[:404] - Importing PcdImagePlugin
+2020-06-05 16:18:48,912 - DEBUG - Image.py line[:404] - Importing PcxImagePlugin
+2020-06-05 16:18:48,913 - DEBUG - Image.py line[:404] - Importing PdfImagePlugin
+2020-06-05 16:18:48,956 - DEBUG - Image.py line[:404] - Importing PixarImagePlugin
+2020-06-05 16:18:48,963 - DEBUG - Image.py line[:404] - Importing PngImagePlugin
+2020-06-05 16:18:48,965 - DEBUG - Image.py line[:404] - Importing PpmImagePlugin
+2020-06-05 16:18:48,970 - DEBUG - Image.py line[:404] - Importing PsdImagePlugin
+2020-06-05 16:18:48,975 - DEBUG - Image.py line[:404] - Importing SgiImagePlugin
+2020-06-05 16:18:48,979 - DEBUG - Image.py line[:404] - Importing SpiderImagePlugin
+2020-06-05 16:18:48,987 - DEBUG - Image.py line[:404] - Importing SunImagePlugin
+2020-06-05 16:18:48,999 - DEBUG - Image.py line[:404] - Importing TgaImagePlugin
+2020-06-05 16:18:49,008 - DEBUG - Image.py line[:404] - Importing TiffImagePlugin
+2020-06-05 16:18:49,011 - DEBUG - Image.py line[:404] - Importing WebPImagePlugin
+2020-06-05 16:18:49,023 - DEBUG - Image.py line[:404] - Importing WmfImagePlugin
+2020-06-05 16:18:49,027 - DEBUG - Image.py line[:404] - Importing XbmImagePlugin
+2020-06-05 16:18:49,037 - DEBUG - Image.py line[:404] - Importing XpmImagePlugin
+2020-06-05 16:18:49,043 - DEBUG - Image.py line[:404] - Importing XVThumbImagePlugin
+2020-06-05 16:36:11,083 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:37:35,511 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:38:11,386 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:38:45,925 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:39:15,203 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archives_pk`=1484：
+2020-06-05 16:39:15,212 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=1484
+2020-06-05 16:40:54,625 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:43:20,114 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:45:37,132 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:46:14,044 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:49:42,160 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:50:46,526 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:53:09,740 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:55:03,437 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 16:58:55,496 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:00:44,649 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:02:55,994 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:05:50,021 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:06:12,295 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:06:53,966 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:08:39,386 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:14:55,029 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:15:36,524 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:17:06,072 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:19:04,488 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:21:46,406 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:23:12,813 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:24:01,148 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:26:45,693 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:29:33,353 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:31:36,543 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:33:16,499 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:35:51,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:38:44,911 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:41:24,622 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:43:01,319 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:44:35,881 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:47:02,501 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:50:12,260 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:50:36,666 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:51:42,752 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:55:07,452 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:58:02,150 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:58:52,031 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 17:59:57,769 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:03:19,568 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:05:20,062 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:07:14,368 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:11:58,605 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:12:35,645 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:12:36,800 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:16:54,488 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:18:28,534 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:20:34,045 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:22:16,890 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:26:04,774 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:26:55,203 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:33:24,022 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:35:19,106 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:37:39,492 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:39:31,085 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-05 18:41:04,087 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-06 14:53:31,581 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-06 14:54:46,564 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-06 14:55:18,108 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-06 14:56:13,613 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:10:44,462 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:10:48,046 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:13:20,891 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:13:54,030 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来%' or archive_describe like '%任务来%' or issuing like '%任务来%' or fTitle like '%任务来%' or title like '%任务来%' or key_words like '%任务来%' or involve_project like '%任务来%' 
+2020-06-07 14:14:03,848 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:14:06,809 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:14:07,060 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:17:46,697 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:17:51,123 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:44:26,486 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:47:29,966 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:47:38,751 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:49:28,292 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:49:32,656 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:51:00,192 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:51:05,121 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:52:24,247 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:52:30,739 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:53:24,216 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:53:27,802 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 14:54:58,225 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 14:55:15,878 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-07 15:03:06,475 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 15:05:12,296 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:13:43,854 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:15:02,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:15:05,179 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:16:08,460 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:17:16,835 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:18:07,838 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:22:21,099 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:23:45,836 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:27:50,131 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:30:53,789 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%来源文件%' or archive_describe like '%来源文件%' or issuing like '%来源文件%' or fTitle like '%来源文件%' or title like '%来源文件%' or key_words like '%来源文件%' or involve_project like '%来源文件%' 
+2020-06-07 23:34:22,611 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:34:44,940 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:34:45,784 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:36:24,982 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-07 23:41:25,279 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 13:50:27,207 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 13:51:41,860 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:16:55,463 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:18:27,766 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:19:43,881 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:20:29,608 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:21:27,921 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:22:02,399 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:23:07,753 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:23:43,618 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:24:54,998 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:53:29,840 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 14:53:32,799 - DEBUG - Archives.py line[:354] - refreshTableView方法刷新了一个过滤条件：archive_no like '%议事%' or archive_describe like '%议事%' or issuing like '%议事%' or fTitle like '%议事%' or title like '%议事%' or key_words like '%议事%' or involve_project like '%议事%' 
+2020-06-08 15:24:16,683 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:25:48,707 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:27:51,516 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:30:13,690 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:36:06,549 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:39:19,492 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:46:05,437 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:49:44,476 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:58:55,688 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 15:58:57,071 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:01:17,593 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:07:11,097 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:08:57,451 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:10:45,766 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:11:27,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:11:28,156 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:44:21,993 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 16:44:50,550 - DEBUG - Archives.py line[:354] - refreshTableView方法刷新了一个过滤条件：archive_no like '%三个经济%' or archive_describe like '%三个经济%' or issuing like '%三个经济%' or fTitle like '%三个经济%' or title like '%三个经济%' or key_words like '%三个经济%' or involve_project like '%三个经济%' 
+2020-06-08 16:57:39,031 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 17:03:10,417 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 17:27:43,905 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:01:51,680 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:02:42,467 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:04:49,881 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:06:17,299 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:06:24,504 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:12:04,201 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:13:27,292 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:13:35,026 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:13:37,403 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:13:37,809 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:14:23,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:14:24,873 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:14:28,493 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:14:37,156 - WARNING - JPWidgets.py line[:138] - 窗体字段【{}】的FieldInfo属性为None，可能是窗体SQl查询语句中没有包含此字段！
+2020-06-08 18:16:26,467 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:16:38,359 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:20:06,552 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:20:07,792 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:20:12,030 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:22:55,628 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:23:00,730 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-08 18:35:09,361 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:41:40,907 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:46:39,590 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:51:14,960 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 18:53:50,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:26:33,364 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:28:46,059 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:30:02,536 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:30:42,729 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:31:16,203 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:32:02,562 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:34:42,032 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:34:43,385 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:35:45,029 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:38:21,115 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:39:18,623 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:46:21,139 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:47:20,930 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:48:45,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:50:25,622 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:51:38,180 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:52:17,107 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 19:54:04,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:01:48,665 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:02:18,506 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:03:26,184 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:13:10,571 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:14:45,486 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:17:26,136 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:35:09,678 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 20:35:44,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-08 23:31:26,078 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。

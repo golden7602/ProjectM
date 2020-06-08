@@ -1,17 +1,17 @@
+import logging
+from lib.JPConfigInfo import ConfigInfo
+from lib.JPFunction import Singleton
+from lib.JPDatabase.Field import JPFieldInfo, JPMySQLFieldInfo
+from PyQt5 import QtSql
+from PyQt5.QtWidgets import QMessageBox
+from pymysql import cursors as mysql_cursors
+from pymysql import connect as mysql_connect
+import datetime
 import re
 from functools import singledispatch
 from os import getcwd, path as ospath
 from sys import path as jppath
 jppath.append(getcwd())
-
-import datetime
-from pymysql import connect as mysql_connect
-from pymysql import cursors as mysql_cursors
-from PyQt5.QtWidgets import QMessageBox
-
-from lib.JPDatabase.Field import JPFieldInfo, JPMySQLFieldInfo
-from lib.JPFunction import Singleton
-from lib.JPConfigInfo import ConfigInfo
 
 
 class JPDbType(object):
@@ -30,11 +30,25 @@ class JPDb(object):
         if self.__init_times == 0:
             self.__db_type = dbtype
             self.__currentConn = self.currentConn
+            self.__QSqlDatabase = QtSql.QSqlDatabase.addDatabase("QMYSQL3")
 
         self.__init_times += 1
 
     def setDatabaseType(self, db_type: JPDbType):
         self.__db_type = db_type
+
+    # 临时增加的一个方法，这是解决了QSql连接不问题之后为了加快主界面显示速度用的
+    def getQSqlDatabase(self):
+        cfg = ConfigInfo()
+        db = self.__QSqlDatabase
+        if not self.__QSqlDatabase.isOpen():
+            db.setHostName(cfg.host)
+            db.setPort(cfg.port)
+            db.setDatabaseName(cfg.database)
+            db.setUserName(cfg.user)
+            db.setPassword(cfg.password)
+            db.open()
+        return db
 
     def close(self):
         """关闭数据库连接"""
@@ -72,6 +86,7 @@ class JPDb(object):
 
     # 生成一个空对象
     def getFeildsInfoAndData(self, sql) -> JPFieldInfo:
+        print(sql)
         if self.__db_type == JPDbType.MySQL:
             con = cur = self.currentConn
             cur = con.cursor()
@@ -79,6 +94,8 @@ class JPDb(object):
                 cur.execute(sql)
                 con.commit()
             except Exception as e:
+                logging.getLogger().error("getFeildsInfoAndData方法执行SQL错：{}".format(
+                    sql), exc_info=True, stack_info=True)
                 raise ValueError('SQL语句或表名格式不正确!\n{}\n'.format(sql) + str(e))
 
             covsdict = JPMySQLFieldInfo.getConvertersDict()
@@ -146,7 +163,8 @@ class JPDb(object):
                 dic_i = {}
                 for n, v in zip(flds, row):
                     tp_i = JPMySQLFieldInfo.tp[n.type_code]
-                    dic_i[n.name] = JPMySQLFieldInfo.getConvertersDict()[tp_i](v)
+                    dic_i[n.name] = JPMySQLFieldInfo.getConvertersDict()[
+                        tp_i](v)
                 datas.append(dic_i)
 
             # covsdict = JPMySQLFieldInfo.getConvertersDict()
@@ -165,6 +183,11 @@ class JPDb(object):
         if self.__db_type == JPDbType.MySQL:
             return " Limit 0"
 
+    def getClearSQL(self, sql):
+        """返回一个消除了多余空格、换行后的干净的SQL语句"""
+        return re.sub(r'^\s', '',
+                      re.sub(r'\s+', ' ', re.sub(r'\n', '', sql)))
+
     def executeTransaction(self, sqls):
         """执行一组语句，返回值两个
             第一个是执行状态，成功返回 True
@@ -173,16 +196,19 @@ class JPDb(object):
         con = self.currentConn
         cur = con.cursor()
         con.begin()
+        lastSQL = ''
         try:
             if isinstance(sqls, str):
                 cur.execute(sqls)
             if isinstance(sqls, (list, tuple)):
                 for sql in sqls:
-                    sql_t = re.sub(r'^\s', '',
-                                   re.sub(r'\s+', ' ', re.sub(r'\n', '', sql)))
+                    sql_t = self.getClearSQL(sql)
+                    lastSQL = sql_t
                     cur.execute(sql_t)
         except Exception as e:
             con.rollback()
+            logging.getLogger().error("executeTransaction方法执行SQL错：{}".format(
+                lastSQL), exc_info=True, stack_info=True)
             QMessageBox.warning(None, '提示', "执行SQL出错！" + '\n' + str(e),
                                 QMessageBox.Yes, QMessageBox.Yes)
             return False, None

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+from lib.JPFunction import Singleton
+from PyQt5.QtWidgets import QMessageBox
 from configparser import ConfigParser
 from os import getcwd, path as ospath
 from sys import path as jppath
 jppath.append(getcwd())
-from PyQt5.QtWidgets import QMessageBox
-from lib.JPFunction import Singleton
 
 
 @Singleton
@@ -25,6 +25,10 @@ class ConfigInfo():
         self.password = kw["password"]
         self.database = kw["database"]
         self.port = int(kw['port'])
+
+        kw = dict(config._sections["debug"])
+        self.debug_level = kw["level"]
+        self.logFile = kw["logfile"]
 
         # kw = dict(config._sections["path"])
         # self.tax_reg_path = kw["tax_reg"]

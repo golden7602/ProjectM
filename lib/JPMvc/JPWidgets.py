@@ -24,9 +24,10 @@ from lib.JPDatabase.Field import JPFieldType
 from lib.JPDatabase.Query import JPTabelRowData
 from lib.JPException import JPExceptionFieldNull
 from lib.JPFunction import JPBooleanString, JPDateConver, JPGetDisplayText
-
+import logging
 
 def __getattr__(name):
+    #print(name)
     return QtWidgets_.__dict__[name]
 
 
@@ -134,7 +135,7 @@ class _JPWidgetBase(QObject):
     def FieldInfo(self):
         errStr = "窗体字段【{}】的FieldInfo属性为None，可能是窗体SQl查询语句中没有包含此字段！"
         if self.__FieldInfo is None:
-            raise AttributeError(errStr.format(self.objectName()))
+            logging.getLogger().warning(errStr.format(self.getObjectName()))
         return self.__FieldInfo
 
     @FieldInfo.setter
@@ -195,7 +196,8 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
         self.passWordConver = None
         self.Validator = None
         self.textChanged[str].connect(self.__onlyRefreshDisplayText)
-        self.setAttribute(Qt.WA_InputMethodEnabled, False)
+        #是否打开中文输入
+        self.setAttribute(Qt.WA_InputMethodEnabled, True)
 
     def getSqlValue(self) -> str:
         t = self.text()
@@ -260,15 +262,15 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
         elif tp == JPFieldType.String:
             self.setMaxLength(fld.Length)
 
-    def keyPressEvent(self, KeyEvent):
-        # 限制只能输入数字及小数点,不能输入科学计数法的e
-        if self.isNumeric():
-            if not KeyEvent.text() in '-.0123456789':
-                return
-            else:
-                QLineEdit_.keyPressEvent(self, KeyEvent)
-        else:
-            QLineEdit_.keyPressEvent(self, KeyEvent)
+    # def keyPressEvent(self, KeyEvent):
+    #     # 限制只能输入数字及小数点,不能输入科学计数法的e
+    #     if self.isNumeric():
+    #         if not KeyEvent.text() in '-.0123456789':
+    #             return
+    #         else:
+    #             QLineEdit_.keyPressEvent(self, KeyEvent)
+    #     else:
+    #         QLineEdit_.keyPressEvent(self, KeyEvent)
 
     def __setDisplayText(self):
         v = self.FieldInfo.Value
@@ -294,6 +296,7 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
         self.Validator = Validator
 
     def __onlyRefreshDisplayText(self, v):
+        return
         self.setText(v)
 
     def isSignalConnected(self, obj, name):
@@ -354,7 +357,8 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
 class QTextEdit(QTextEdit_, _JPWidgetBase):
     def __init__(self, parent):
         super().__init__(parent)
-        self.setAttribute(Qt.WA_InputMethodEnabled, False)
+        #是否打开中文输入
+        self.setAttribute(Qt.WA_InputMethodEnabled, True)
         self.textChanged.connect(self.refreshValueNotRaiseEvent)
 
     def getSqlValue(self) -> str:

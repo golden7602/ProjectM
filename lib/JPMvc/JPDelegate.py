@@ -48,7 +48,7 @@ class _JPDelegate_Base(QStyledItemDelegate):
     def setModelData(self, editor: QWidget, model: QAbstractItemModel,
                      index: QModelIndex):
         pass
-
+    
     def updateEditorGeometry(self, editor: QWidget,
                              StyleOptionViewItem: QStyleOptionViewItem,
                              index: QModelIndex):
@@ -80,7 +80,8 @@ class JPDelegate_LineEdit(_JPDelegate_Base):
     def createEditor(self, parent: QWidget, option: QStyleOptionViewItem,
                      index: QModelIndex) -> QWidget:
         wdgt = QLineEdit(parent)
-        wdgt.setAttribute(Qt.WA_InputMethodEnabled, False)
+        #是否打开中文输入
+        wdgt.setAttribute(Qt.WA_InputMethodEnabled, True)
         if self.__ValueType == JPFieldType.Int:
             wdgt.setValidator(QIntValidator())
         if self.__ValueType == JPFieldType.Float:

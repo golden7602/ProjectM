@@ -89,7 +89,8 @@ class JPMySQLFieldInfo(JPFieldInfo):
         FIELD_TYPE.DATETIME: JPFieldInfo.Date,
         FIELD_TYPE.NEWDATE: JPFieldInfo.Date,
         FIELD_TYPE.TIMESTAMP: JPFieldInfo.Date,
-        FIELD_TYPE.BIT: JPFieldInfo.Boolean
+        FIELD_TYPE.BIT: JPFieldInfo.Boolean,
+        FIELD_TYPE.MEDIUM_BLOB:JPFieldInfo.String
     }
 
     SqlValueCreater = {
@@ -126,6 +127,8 @@ class JPMySQLFieldInfo(JPFieldInfo):
                 return 1 if x else 0
             if isinstance(x, bytes):
                 return ord(x)
+            if isinstance(x, int):
+                return 1 if x else 0
 
         def v_int(x):
             if isinstance(x, str):

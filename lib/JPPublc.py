@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+from lib.JPForms.JPNotify import WindowNotify
+from Ui.Ui_FormUserLogin import Ui_Dialog as Ui_Dialog_Login
+from Ui.Ui_FormChangePassword import Ui_Dialog as Ui_Dialog_ChnPwd
+from lib.JPFunction import Singleton, md5_passwd
+from lib.JPForms.JPDialogAnimation import DialogAnimation
+from lib.JPDatabase.Database import JPDb
+from PyQt5.QtWidgets import (QMessageBox, QTreeWidgetItem, QProgressDialog)
+from PyQt5.QtGui import (QIcon, QPixmap)
+from PyQt5.QtCore import (QObject, Qt, QThread, pyqtSignal)
 from base64 import b64decode, b64encode
 from os import getcwd, path as ospath
 import json
@@ -7,18 +16,26 @@ from sys import path as jppath
 import socket
 import time
 import datetime
+import winreg
 jppath.append(getcwd())
 
-from PyQt5.QtCore import QObject, Qt, QThread, pyqtSignal
-from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtWidgets import QMessageBox, QTreeWidgetItem
 
-from lib.JPDatabase.Database import JPDb
-from lib.JPForms.JPDialogAnimation import DialogAnimation
-from lib.JPFunction import Singleton, md5_passwd, setWidgetIconByName
-from Ui.Ui_FormChangePassword import Ui_Dialog as Ui_Dialog_ChnPwd
-from Ui.Ui_FormUserLogin import Ui_Dialog as Ui_Dialog_Login
-from lib.JPForms.JPNotify import WindowNotify
+class lazy_Property(object):
+    def __init__(self, func):
+        self.func = func
+
+    def __get__(self, instance, cls):
+        val = self.func(instance)
+        setattr(instance, self.func.__name__, val)
+        return val
+
+
+class FileNotFoundException(Exception):
+    '''文件不存在错误'''
+    def __init__(self, FileName, *args, **kwargs):
+        self.FileName = FileName
+        self.message = "指定的文件【{}】不存在！".format(FileName)
+        super().__init__(*args, **kwargs)
 
 
 class Form_ChangePassword(DialogAnimation):
@@ -111,7 +128,7 @@ class Form_UserLogin(DialogAnimation):
             lst = JPDb().getDict(sql)
             if lst:
                 JPUser().setCurrentUserID(lst[0]['fUserID'])
-                #self.doFadeClose()
+                # self.doFadeClose()
                 self.hide()
             else:
                 self.doShake()
@@ -129,6 +146,29 @@ class Form_UserLogin(DialogAnimation):
             exit()
 
 
+class FormPopProgressBar(QProgressDialog):
+    def __init__(self, parent=None, flags=Qt.WindowFlags()):
+        super().__init__(parent=parent, flags=flags)
+        self.setWindowTitle("请稍候......")
+        self.setMinimum(0)
+        self.setMaximum(0)
+        self.setValue(0)
+        self.setAutoClose(True)
+        self.setAutoReset(True)
+
+    def reset(self, maxValue=0):
+        self.setMaximum(maxValue)
+        self.setLabelText('准备中.....                                                  ')
+        super().reset()
+
+    def dispInfo(self, text='', value=0):
+        self.setValue(value)
+        if text:
+            self.setLabelText('正在加载【{}】\n请稍候......'.format(text))
+
+    def dispInfoStep(self, text=''):
+        self.dispInfo(text, self.value()+1)
+
 @Singleton
 class JPUser(QObject):
     __Name = None
@@ -144,7 +184,7 @@ class JPUser(QObject):
         sql = """select fUserID,fUsername from sysusers where fUserID=1 or fEnabled=1"""
         self.__AllUser = db.getDataList(sql)
 
-    def currentUserID(self):
+    def currentUserID(self) -> int:
         if self.__ID:
             return self.__ID
         self.FRM_LOGIN = Form_UserLogin()
@@ -230,10 +270,6 @@ class JPPub(QObject):
             self.user = JPUser()
             self.db = JPDb()
             self.__ConfigData = None
-            # self.INITCustomer()
-            # self.INITSupplier()
-            #self.INITEnum()
-
             sql = """
                 SELECT fNMID, fMenuText, fParentId, fCommand, fObjectName, fIcon,
                         cast(fIsCommandButton AS SIGNED) AS fIsCommandButton
@@ -243,39 +279,18 @@ class JPPub(QObject):
                 """
             self.__sysNavigationMenusDict = self.db.getDict(sql)
 
-    def INITEnum(self):
-        def getEnumDict() -> dict:
-            sql = '''select fTypeID,fTitle,fItemID,fSpare1,
-                        fSpare2,fNote from t_enumeration'''
-            rows = self.db.getDataList(sql)
-            return {
-                k: [row1[1:] for row1 in rows if row1[0] == k]
-                for k in set(row[0] for row in rows)
-            }
-
-        self.__EnumDict = getEnumDict()
-
-    # def INITCustomer(self):
-    #     sql = '''select fCustomerName,fCustomerID,
-    #             fNUIT,fCity,fContato,fTaxRegCer from t_customer'''
-    #     self.__allCustomerList = self.db.getDataList(sql)
-
-    # def INITSupplier(self):
-    #     sql = '''select fSupplierName,fSupplierID,
-    #             fNUIT,fCity,fContato,fTaxRegCer from t_supplier'''
-    #     self.__allSupplieList = self.db.getDataList(sql)
+    @lazy_Property
+    def _getEnumDict(self) -> dict:
+        sql = '''select fTypeID,fTitle,fItemID,fSpare1,
+                    fSpare2,fNote from t_enumeration'''
+        rows = self.db.getDataList(sql)
+        return {
+            k: [row1[1:] for row1 in rows if row1[0] == k]
+            for k in set(row[0] for row in rows)
+        }
 
     def getEnumList(self, enum_type_id: int):
-        self.INITEnum()
-        return self.__EnumDict[enum_type_id]
-
-    def getSupplierList(self):
-        self.INITSupplier()
-        return self.__allSupplierList
-
-    def getCustomerList(self):
-        self.INITCustomer()
-        return self.__allCustomerList
+        return self._getEnumDict[enum_type_id]
 
     def getSysNavigationMenusDict(self):
         return self.__sysNavigationMenusDict
@@ -299,15 +314,13 @@ class JPPub(QObject):
             if item not in mydic.keys():
                 mydic[item] = 'atendimento;1;producao;0;cliente;1;caixa;1'
 
-        if 'TaxRegCerPath' not in mydic.keys():
-            mydic['TaxRegCerPath'] = ''
-            txt = '您还没有设置客户税务登记证件位置\n'
-            txt = txt + 'You haven\'t set up the location of the customer\'s tax registration certificate yet'
+        if 'archives_path' not in mydic.keys():
+            mydic['archives_path'] = ''
+            txt = '您还没有设置附件文件存放位置'
             QMessageBox.information(self.MainForm, '提示', txt)
         else:
-            if not ospath.exists(mydic['TaxRegCerPath']):
-                txt = '您设置的客户税务登记证件位置不存在\n'
-                txt = txt + 'The location of the customer tax registration certificate you set does not exist'
+            if not ospath.exists(mydic['archives_path']):
+                txt = '您设置的设置附件文件存放位置不存在'
                 QMessageBox.information(self.MainForm, '提示', txt)
         return mydic
 
@@ -419,3 +432,31 @@ class JPPub(QObject):
     def popMessage(self, txt):
         self.notify.show(content=txt)
         self.notify.showAnimation()
+
+    def getOrSetlastOpenDir(self, path: str = None):
+        """返回或设置最后打开文件夹，如果path给一个文件名或路径名，则设置，不给值则返回一个值"""
+        subKey = r'Software\project_m'
+        key = winreg.HKEY_CURRENT_USER
+        try:
+            newkey = winreg.OpenKey(key, subKey)
+        except WindowsError:
+            newkey = winreg.CreateKey(key, subKey)
+            winreg.SetValue(newkey, "recentPath", winreg.REG_SZ, getcwd())
+        if not path:
+            return winreg.QueryValue(key, subKey+r'\recentPath')
+        else:
+            if ospath.isfile(path):
+                path = ospath.dirname(path)
+            winreg.SetValue(newkey, "recentPath", winreg.REG_SZ, path)
+
+    def __checkFileExist(self, path):
+        return path
+
+
+    def getIcoPath(self, fileName: str):
+        p = getcwd() + "\\res\\ico\\{}".format(fileName)
+        return self.__checkFileExist(p)
+
+    def getLogoPath(self, fileName: str):
+        p = getcwd() + "\\res\\{}".format(fileName)
+        return self.__checkFileExist(p)

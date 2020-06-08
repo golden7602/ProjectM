@@ -1,3 +1,4 @@
+import logging
 import datetime
 from os import getcwd
 from sys import path as jppath
@@ -11,7 +12,6 @@ from lib.JPDatabase.Field import JPFieldInfo
 from PyQt5.QtWidgets import QMessageBox
 from lib.JPFunction import JPGetDisplayText
 #from lib.JPPublc import JPPub
-
 
 class JPTabelRowData(object):
     New_None = -1
@@ -105,7 +105,7 @@ class JPQueryFieldInfo(object):
         if not v:
             return ''
         if rs:
-            txts = [item[1] for item in rs if item[0] == v]
+            txts = [item[0] for item in rs if item[self.Fields[c].BindingColumn] == v]
             if txts:
                 return txts[0]
         else:
@@ -175,7 +175,7 @@ class JPQueryFieldInfo(object):
 
 
 class JPTabelFieldInfo(JPQueryFieldInfo):
-    def __init__(self, sql: str, noData: bool = False):
+    def __init__(self, sql: str, noData: bool = False, checkPrimarykey=True):
         '''根据一个Sql或表名返回一个JPTabelFieldInfo对象\n
         JPTabelFieldInfo(sql:str, noData:bool=False)
         '''
@@ -202,12 +202,13 @@ class JPTabelFieldInfo(JPQueryFieldInfo):
         super().__init__(sql)
 
         # 检查查询结果中是否包含主键,
-        for i, fld in enumerate(self.Fields):
-            if fld.IsPrimarykey is True:
-                self.PrimarykeyFieldName = fld.FieldName
-                self.PrimarykeyFieldIndex = i
-        if self.PrimarykeyFieldIndex is None:
-            raise ValueError('查询语句:\n"{}"中未包含主键字段！'.format(sql))
+        if checkPrimarykey:
+            for i, fld in enumerate(self.Fields):
+                if fld.IsPrimarykey is True:
+                    self.PrimarykeyFieldName = fld.FieldName
+                    self.PrimarykeyFieldIndex = i
+            if self.PrimarykeyFieldIndex is None:
+                raise ValueError('查询语句:\n"{}"中未包含主键字段！'.format(sql))
         # 检查主键字段是不是自增
         #pk_fld = self.getFieldsInfoDict()
 

@@ -82,7 +82,7 @@ class JPBooleanString(object):
     def getBooleanString(self):
         return self.__BoolString
 
-    def setBooleanString(tup: tuple):
+    def setBooleanString(self, tup: tuple):
         """设置全局逻辑变量的默认值
         格式如 (('', 0), ('SIM', 1))"""
         self.__BoolString = [tup]
@@ -308,8 +308,9 @@ def readQss(style):  # Use: win.setStyleSheet(readQss(qssStyle))
 
 
 
-# 生成文件哈希值，用于文件名
+
 def GetFileMd5(filename):
+    '''生成文件哈希值，用于文件名'''
     if not os.path.isfile(filename):
         return
     myHash = hashlib.md5()
@@ -321,3 +322,13 @@ def GetFileMd5(filename):
         myHash.update(b)
     f.close()
     return myHash.hexdigest()
+
+
+def GetStrAsMD5(parmStr):
+    '''生成字符串哈希值，用于文件名'''
+    if isinstance(parmStr, str):
+        # 如果是unicode先转utf-8
+        parmStr = parmStr.encode("utf-8")
+    m = hashlib.md5()
+    m.update(parmStr)
+    return m.hexdigest()
