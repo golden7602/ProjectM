@@ -13,7 +13,7 @@ jppath.append(getcwd())
 from PyQt5.QtCore import QDate, Qt, QDateTime
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QLabel, QPushButton, QWidget
-
+from functools import wraps
 
 def seWindowsIcon(win):
     win.setWindowIcon(QIcon(getcwd() + '\\order_162.ico'))
@@ -63,16 +63,19 @@ def PrintFunctionRunTime(func):
     return run
 
 
-def Singleton(cls, *args, **kw):
-    """单实例装饰器"""
-    instance = {}
 
-    def _singleton():
-        if cls not in instance:
-            instance[cls] = cls(*args, **kw)
-        return instance[cls]
+
+def Singleton(cls):
+    """单实例装饰器"""
+    _instance = {}
+
+    def _singleton(*args, **kargs):
+        if cls not in _instance:
+            _instance[cls] = cls(*args, **kargs)
+        return _instance[cls]
 
     return _singleton
+
 
 
 @Singleton

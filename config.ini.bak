@@ -1,0 +1,23 @@
+﻿[database]
+host=192.168.1.20
+user=jhglb
+password=1234
+database=project_m
+port=3306
+
+[path]
+archives_path=//192.168.1.20/jhglb/archives
+
+[debug]
+level=10
+; 说明
+; logging.DEBUG: 10
+; logging.INFO: 20
+; logging.WARNING: 30
+; logging.ERROR: 40
+; logging.CRITICAL: 50
+logfile = project.log
+
+[viewpdf]
+maxpages=2
+; 说明 超过多少页的PDF文件在界面中不进行加载，只显示一个图标

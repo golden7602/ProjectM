@@ -252,14 +252,14 @@ def loadTreeview(treeWidget, items, hasCommandButton=False):
             treeWidget._rootItem = root
             self.root = root
             self.items = items
-            self.icopath = JPPub().MainForm.icoPath
+            #self.icopath = JPPub().MainForm.icoPath
 
         def addItems(self, parent, items):
             for r in items:
                 item = QTreeWidgetItem(parent)
                 item.setText(0, r["fMenuText"])
                 if r["fIcon"]:
-                    item.setIcon(0, QIcon(self.icopath.format(r["fIcon"])))
+                    item.setIcon(0, JPPub().MainForm.getIcon(r["fIcon"]))
                 st = (Qt.Checked if r['fHasRight'] == 1 else Qt.Unchecked)
                 if not r["fDefault"]:
                     item.setCheckState(1, st)

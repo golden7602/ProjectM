@@ -84,17 +84,18 @@ def loadTreeview(treeWidget, items, MF):
 class JPMainWindow(QMainWindow):
     def __init__(self, dataBaseType: JPDbType = JPDbType.MySQL, *args, **kwargs):
         super(JPMainWindow, self).__init__(*args, **kwargs)
-        db = JPDb()
-        db.setDatabaseType(dataBaseType)
-        JPPub().MainForm = self
+        try:
+            db = JPDb()
+            db.setDatabaseType(dataBaseType)
+            JPPub().MainForm = self
+        except Exception as e:
+            QMessageBox.warning(self, "提示", str(e))
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.label_Title.setText("")
         self.commandDict = {}
         self.logoPixmap = None
-
-        # self.icoPath = getcwd() + "\\res\\ico\\{}"
-        # self.logoPath = getcwd() + "\\res\\{}"
 
         self.addOneButtonIcon(self.ui.ChangeUser, "changeuser.png")
         self.addOneButtonIcon(self.ui.ChangePassword, "changepassword.png")
@@ -190,10 +191,10 @@ class JPMainWindow(QMainWindow):
             del temp
         st.addWidget(form)
 
-    def getIcon(self, icoName):
+    def getIcon(self, icoName) -> QIcon:
         return QIcon(JPPub().getIcoPath(icoName))
 
-    def getPixmap(self, icoName):
+    def getPixmap(self, icoName) -> QPixmap:
         return QPixmap(JPPub().getIcoPath(icoName))
 
     def addOneButtonIcon(self, btn, icoName):
@@ -217,7 +218,8 @@ class JPMainWindow(QMainWindow):
                 btn.setEnabled(m['fHasRight'])
                 layout.addWidget(btn)
             else:
-                errStr = "窗体【{}】中没有找到名为'【{}】'的布局"
+                errStr = "窗体【{}】中没有找到名为'【Layout_Button】'的布局".format(
+                    frm.objectName())
                 errStr = errStr+",无法添加按钮。"
                 logging.getLogger().warning(errStr)
             # 设置按名称执行槽函数
@@ -246,19 +248,19 @@ class JPMainWindow(QMainWindow):
 
 
 class JPMianApp():
-    def __init__(self):
+    def __init__(self, defultConfigDict: dict):
         """用户应用程序"""
         super().__init__()
         # 高清屏设置
         QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
         QApplication.setStyle('Fusion')
         self.__app = QApplication(argv)
+        cfg = ConfigInfo(defultConfigDict)
         self.__mainForm = JPMainWindow()
 
         # 根据配置文件设置文件及日志级别日志级别
-        cfg = ConfigInfo()
-        level = int(cfg.debug_level)
-        fn = cfg.logFile
+        level = int(cfg.debug.level)
+        fn = cfg.debug.logfile
         logger = logging.getLogger()
         logger.setLevel(level)
         f_handler = logging.FileHandler(fn, encoding="utf-8", mode="a")

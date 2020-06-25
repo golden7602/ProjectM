@@ -115,5 +115,5 @@ if __name__ == "__main__":
     ui = Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
-
+    ui.dispData()
     sys.exit(app.exec_())

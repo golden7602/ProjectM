@@ -1,21 +1,13 @@
-class ShowClassName(object):
-    def __init__(self, cls):
-        self._cls = cls
-
-    def __call__(self, a):
-        print('class name:', self._cls.__name__)
-        return self._cls(a)
+from PIL import Image
+import os
 
 
-@ShowClassName
-class Foobar(object):
-    def __init__(self, a):
-        self.value = a
+img = Image.open('E:\\ProjectM\\temp\\20_20200612134400\\1.jpg')  # 读取系统的内照片
+img = img.convert("RGBA")  # 转换获取信息
+pixdata = img.load()
 
-    def fun(self):
-        print(self.value)
-
-
-a = Foobar('xiemanR')
-
-a.fun()
+for y in range(img.size[1]):
+    for x in range(img.size[0]):
+        if pixdata[x, y][0] > 220 and pixdata[x, y][1] > 220 and pixdata[x, y][2] > 220 and pixdata[x, y][3] > 220:
+            pixdata[x, y] = (255, 255, 255, 0)
+img.save(r'E:\\ProjectM\\temp\\20_20200612134400\\2.png')  # 保存修改像素点后的图片

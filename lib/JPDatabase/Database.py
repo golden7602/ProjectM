@@ -3,7 +3,6 @@ from lib.JPConfigInfo import ConfigInfo
 from lib.JPFunction import Singleton
 from lib.JPDatabase.Field import JPFieldInfo, JPMySQLFieldInfo
 from PyQt5 import QtSql
-from PyQt5.QtWidgets import QMessageBox
 from pymysql import cursors as mysql_cursors
 from pymysql import connect as mysql_connect
 import datetime
@@ -11,6 +10,7 @@ import re
 from functools import singledispatch
 from os import getcwd, path as ospath
 from sys import path as jppath
+import sys 
 jppath.append(getcwd())
 
 
@@ -42,11 +42,11 @@ class JPDb(object):
         cfg = ConfigInfo()
         db = self.__QSqlDatabase
         if not self.__QSqlDatabase.isOpen():
-            db.setHostName(cfg.host)
-            db.setPort(cfg.port)
-            db.setDatabaseName(cfg.database)
-            db.setUserName(cfg.user)
-            db.setPassword(cfg.password)
+            db.setHostName(cfg.database.host)
+            db.setPort(int(cfg.database.port))
+            db.setDatabaseName(cfg.database.database)
+            db.setUserName(cfg.database.user)
+            db.setPassword(cfg.database.password)
             db.open()
         return db
 
@@ -59,23 +59,21 @@ class JPDb(object):
 
     @property
     def currentConn(self) -> mysql_connect:
-        mConfigInfo = ConfigInfo()
+        cfg = ConfigInfo()
         if self.__db_type == JPDbType.MySQL:
             if self.__currentConn is None:
                 try:
-                    conn = mysql_connect(host=mConfigInfo.host,
-                                         user=mConfigInfo.user,
-                                         password=mConfigInfo.password,
-                                         database=mConfigInfo.database,
-                                         port=mConfigInfo.port)
+                    conn = mysql_connect(host=cfg.database.host,
+                                         user=cfg.database.user,
+                                         password=cfg.database.password,
+                                         database=cfg.database.database,
+                                         port=int(cfg.database.port))
                 except Exception as e:
                     linkErr = '连接数据库错误，请检查"config.ini"文件\n'
                     linkErr = linkErr + 'Connecting the database incorrectly, '
                     linkErr = linkErr + 'please check the "config.ini" file'
                     s = Exception.__repr__(e) + '\n' + linkErr
-                    QMessageBox.warning(None, '错误', s, QMessageBox.Yes,
-                                        QMessageBox.Yes)
-                    exit()
+                    raise RuntimeError(s)
                 self.__currentConn = conn
             return self.__currentConn
         if self.__db_type == JPDbType.SqlServer:
@@ -202,7 +200,7 @@ class JPDb(object):
                 cur.execute(sqls)
             if isinstance(sqls, (list, tuple)):
                 for sql in sqls:
-                    sql_t = self.getClearSQL(sql)
+                    sql_t = sql
                     lastSQL = sql_t
                     cur.execute(sql_t)
         except Exception as e:

@@ -1,5 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import logging
+from lib.JPFunction import JPBooleanString, JPDateConver, JPGetDisplayText
+from lib.JPException import JPExceptionFieldNull
+from lib.JPDatabase.Query import JPTabelRowData
+from lib.JPDatabase.Field import JPFieldType
+from lib.JPDatabase.Database import JPDb
+from PyQt5.QtWidgets import QWidget as QWidget_
+from PyQt5.QtWidgets import QTextEdit as QTextEdit_
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QLineEdit as QLineEdit_
+from PyQt5.QtWidgets import QDateEdit as QDateEdit_
+from PyQt5.QtWidgets import QCompleter
+from PyQt5.QtWidgets import QComboBox as QComboBox_
+from PyQt5.QtWidgets import QCheckBox as QCheckBox_
+from PyQt5.QtGui import (QColor, QDoubleValidator, QIntValidator, QPalette,
+                         QValidator, QPainter, QColor)
+from PyQt5.QtCore import QDate, QObject, Qt, pyqtSignal
+from PyQt5 import QtWidgets as QtWidgets_
 import abc
 import datetime
 import os
@@ -7,27 +25,9 @@ import re
 import sys
 sys.path.append(os.getcwd())
 
-from PyQt5 import QtWidgets as QtWidgets_
-from PyQt5.QtCore import QDate, QObject, Qt, pyqtSignal
-from PyQt5.QtGui import (QColor, QDoubleValidator, QIntValidator, QPalette,
-                         QValidator, QPainter, QColor)
-from PyQt5.QtWidgets import QCheckBox as QCheckBox_
-from PyQt5.QtWidgets import QComboBox as QComboBox_
-from PyQt5.QtWidgets import QCompleter
-from PyQt5.QtWidgets import QDateEdit as QDateEdit_
-from PyQt5.QtWidgets import QLineEdit as QLineEdit_
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QTextEdit as QTextEdit_
-from PyQt5.QtWidgets import QWidget as QWidget_
-from lib.JPDatabase.Database import JPDb
-from lib.JPDatabase.Field import JPFieldType
-from lib.JPDatabase.Query import JPTabelRowData
-from lib.JPException import JPExceptionFieldNull
-from lib.JPFunction import JPBooleanString, JPDateConver, JPGetDisplayText
-import logging
 
 def __getattr__(name):
-    #print(name)
+    # print(name)
     return QtWidgets_.__dict__[name]
 
 
@@ -83,13 +83,15 @@ class _JPIntValidator(QValidator):
 
 
 class _JPWidgetBase(QObject):
+
     def __init__(self, *args):
         super().__init__(*args)
         self.__FieldInfo: JPFieldType = None
         self.MainModel = None
         self.RowsData = None
         self.Null_prompt_bac_color = QColor(255, 192, 203)
-        #self.setAutoFillBackground(True)
+        # self.setAutoFillBackground(True)
+
     @staticmethod
     def getRGBString(color):
         r = color.red()
@@ -191,13 +193,17 @@ class _JPWidgetBase(QObject):
 
 
 class QLineEdit(QLineEdit_, _JPWidgetBase):
+
     def __init__(self, parent):
         super().__init__(parent)
         self.passWordConver = None
         self.Validator = None
         self.textChanged[str].connect(self.__onlyRefreshDisplayText)
-        #是否打开中文输入
+
+        # 是否打开中文输入
         self.setAttribute(Qt.WA_InputMethodEnabled, True)
+
+
 
     def getSqlValue(self) -> str:
         t = self.text()
@@ -261,6 +267,7 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
             self.setDoubleValidator(0.0, 999999999999.99, fld.Scale)
         elif tp == JPFieldType.String:
             self.setMaxLength(fld.Length)
+
 
     # def keyPressEvent(self, KeyEvent):
     #     # 限制只能输入数字及小数点,不能输入科学计数法的e
@@ -355,11 +362,15 @@ class QLineEdit(QLineEdit_, _JPWidgetBase):
 
 
 class QTextEdit(QTextEdit_, _JPWidgetBase):
+
+
     def __init__(self, parent):
         super().__init__(parent)
-        #是否打开中文输入
+        # 是否打开中文输入
         self.setAttribute(Qt.WA_InputMethodEnabled, True)
         self.textChanged.connect(self.refreshValueNotRaiseEvent)
+
+
 
     def getSqlValue(self) -> str:
         t = self.toPlainText()
@@ -371,6 +382,7 @@ class QTextEdit(QTextEdit_, _JPWidgetBase):
     def _setFieldInfo(self, fld: JPFieldType, raiseEvent=True):
         self.FieldInfo = fld
         self.setPlainText(fld.Value)
+
 
     def Value(self):
         return self.FieldInfo.Value
@@ -392,10 +404,13 @@ class QTextEdit(QTextEdit_, _JPWidgetBase):
 
 
 class QComboBox(QComboBox_, _JPWidgetBase):
+
+
     def __init__(self, parent):
         super().__init__(parent)
         self.BindingData = []
         self.currentIndexChanged[int].connect(self._onValueChange)
+
         self.setAttribute(Qt.WA_InputMethodEnabled, False)
 
     def getSqlValue(self) -> str:
@@ -474,11 +489,14 @@ class QComboBox(QComboBox_, _JPWidgetBase):
 
 
 class QDateEdit(QDateEdit_, _JPWidgetBase):
+
+
     def __init__(self, parent):
         super().__init__(parent)
         self.setAttribute(Qt.WA_InputMethodEnabled, False)
         self.__RaiseEvent = False
         self.dateChanged.connect(self._onValueChange)
+
 
     def textFromDateTime(self, *args, **kwargs):
         # 当日期值为初始值及Qdate最小值时，显示空值
@@ -520,6 +538,7 @@ class QDateEdit(QDateEdit_, _JPWidgetBase):
         self.FieldInfo = fld
         self.refreshValueNotRaiseEvent(fld.Value)
 
+
     def Value(self):
         return JPDateConver(self.date(), datetime.date)
 
@@ -529,10 +548,13 @@ class QDateEdit(QDateEdit_, _JPWidgetBase):
 
 
 class QCheckBox(QCheckBox_, _JPWidgetBase):
+
+
     def __init__(self, parent):
         super().__init__(parent)
         self.__RaiseEvent = False
         self.stateChanged[int].connect(self._onValueChange)
+
 
     def getSqlValue(self) -> str:
         if self.checkState() is None:
@@ -561,6 +583,7 @@ class QCheckBox(QCheckBox_, _JPWidgetBase):
         self.FieldInfo = fld
         self.refreshValueNotRaiseEvent(self.FieldInfo.Value)
         self.refreshValueNotRaiseEvent(fld.Value)
+
 
     def Value(self):
         return 1 if self.checkState() == Qt.Checked else 0

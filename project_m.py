@@ -4,26 +4,36 @@
 import datetime
 import logging.handlers
 from lib.JPForms.JPMainApp import JPMianApp
-from lib.ProjectMWidgets.Project import Form_Project
-from lib.ProjectMWidgets.Archives import Form_Archives
-from lib.ProjectMWidgets.Company import Form_Company
-from lib.ProjectMWidgets.ToolsImport import FileToolsImport
-from lib.ProjectMWidgets.ToolsPDF import FileToolsPDF
-# from guppy import hpy
-# hxx = hpy()
-# heap = hxx.heap()
-# byrcs = hxx.heap().byrcs
+from lib.ProjectMWidgets import (
+    Form_Project, Form_Archives, Form_Company, FileToolsImport, FileToolsPDF)
+
 
 if __name__ == "__main__":
-    app = JPMianApp()
+    dicConfig = {
+        'database': {
+            'host': '127.0.0.1',
+            'user': 'username',
+            'password': 'password',
+            'database': 'database',
+            'port': '3306'},
+        'path': {
+            'archives_path': '//192.168.1.20/jhglb/archives'},
+        'debug': {
+            'level': '50',
+            'logfile': 'project.log'},
+        'viewpdf': {
+            'maxpages': '50',
+            'pagesize': '105, 139'}
+    }
+    CommandDic = {2: Form_Project,
+                  186: Form_Archives,
+                  198: Form_Company,
+                  206: FileToolsImport,
+                  207: FileToolsPDF
+                  }
+    app = JPMianApp(dicConfig)
     app.setMainFormLogo("gaoke.png")
     app.setAppIcon("invoice.png")
     app.setMainFormTitle("文档管理")
-    dic = {2: Form_Project,
-           186: Form_Archives,
-           198: Form_Company,
-           206: FileToolsImport,
-           207: FileToolsPDF}
-    app.setCommand(dic)
-#     print(heap)
+    app.setCommand(CommandDic)
     app.show()

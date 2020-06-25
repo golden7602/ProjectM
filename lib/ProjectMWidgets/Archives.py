@@ -35,122 +35,6 @@ from sys import path as jppath
 from shutil import copyfile as myCopy
 jppath.append(os.getcwd())
 
-# class FormPopProgressBar(QProgressDialog):
-#     def __init__(self, parent=None, flags=Qt.WindowFlags()):
-#         super().__init__(parent=parent, flags=flags)
-#         self.setWindowTitle("请稍候......")
-#         # h = 105
-#         # w = 560
-#         # self.resize(w, h)
-#         # self.setMinimumSize(QSize(w, h))
-#         # self.setMaximumSize(QSize(w, h))
-#         # label = QLabel(self)
-#         # self.__label = label
-#         # label.setGeometry(QRect(30, 0, 511, 41))
-#         # label.setObjectName("label")
-#         # label.setText("")
-#         # pb = QProgressBar(self)
-#         # self.__pb = pb
-#         # pb.setGeometry(QRect(20, 60, 520, 23))
-#         # pb.setTextVisible(False)
-#         # pb.setFormat("")
-#         # pb.setObjectName("progressBar")
-#         self.setMinimum(0)
-#         self.setMaximum(0)
-#         self.setValue(0)
-#         self.setAutoClose(True)
-#         self.setAutoReset(True)
-#         # self.center()
-
-#     # @property
-#     # def value(self):
-#     #     return self.__pb.value()
-
-#     # def open(self):
-#     #     self.center()
-#     #     super().open()
-
-#     # def center(self):
-#     #     screen = QDesktopWidget().screenGeometry()
-#     #     size = self.geometry()
-#     #     self.move((screen.width() - size.width()) / 2,
-#     #               (screen.height() - size.height()) / 2)
-#     #     QGuiApplication.processEvents()
-
-#     def reset(self, maxValue=0):
-#         self.setMaximum(maxValue)
-#         self.setLabelText('准备中.....')
-#         super().reset()
-#         # self.open()
-#         # QGuiApplication.processEvents()
-
-#     def dispInfo(self, text='', value=0):
-#         self.setValue(value)
-#         if text:
-#             self.setLabelText('正在加载【{}】\n请稍候......'.format(text))
-#         # QGuiApplication.processEvents()
-
-#     def dispInfoStep(self, text=''):
-#         self.dispInfo(text, self.value()+1)
-
-
-# class Form_ViewPic(QDialog):
-#     def __init__(self, parent=None, viewPixmap=None, ViewPdfAndPic=None, flags=Qt.WindowFlags()):
-#         pub = JPPub()
-#         super().__init__(parent=pub.MainForm, flags=flags)
-#         self.ui = Ui_Dialog_ViewPic()
-#         self.ui.setupUi(self)
-#         self.viewPixmap = viewPixmap
-#         self.ui.label.setScaledContents(False)
-#         self.setModal(True)
-#         self.showMaximized()
-#         self.ViewPdfAndPic = ViewPdfAndPic
-#         for i, item in enumerate(ViewPdfAndPic):
-#             if viewPixmap is item['pixmap']:
-#                 self.currentIndex = i
-#                 self.DispPicIndex(i)
-#                 break
-
-#     def resizeEvent(self, resizeEvent):
-#         if self.viewPixmap:
-#             self.ui.label.setPixmap(self.viewPixmap.scaledToHeight(
-#                 self.ui.label.height(), Qt.SmoothTransformation))
-
-#     def DispPicIndex(self, index):
-#         self.setButHide()
-#         viewPic = self.ViewPdfAndPic[self.currentIndex]['pixmap']
-#         viewPic2 = viewPic.scaledToHeight(
-#             self.ui.label.height(), Qt.SmoothTransformation)
-#         self.ui.label.setPixmap(viewPic2)
-
-#     def setButHide(self):
-#         i = self.currentIndex
-#         s = len(self.ViewPdfAndPic)
-#         self.ui.butFirst.setEnabled(i != 0 and s > 1)
-#         self.ui.butPre.setEnabled(i > 0 and s > 1)
-#         self.ui.butNext.setEnabled(i < s-1)
-#         self.ui.butLast.setEnabled(i != s-1)
-
-#     @pyqtSlot()
-#     def on_butFirst_clicked(self):
-#         self.currentIndex = 0
-#         self.DispPicIndex(self.currentIndex)
-
-#     @pyqtSlot()
-#     def on_butPre_clicked(self):
-#         self.currentIndex -= 1
-#         self.DispPicIndex(self.currentIndex)
-
-#     @pyqtSlot()
-#     def on_butNext_clicked(self):
-#         self.currentIndex += 1
-#         self.DispPicIndex(self.currentIndex)
-
-#     @pyqtSlot()
-#     def on_butLast_clicked(self):
-#         self.currentIndex = len(self.ViewPdfAndPic)-1
-#         self.DispPicIndex(self.currentIndex)
-
 
 class MyCopyFileError(Exception):
     def __init__(self, from_path, to_path, old_msg, *args, **kwargs):
@@ -164,28 +48,6 @@ class MyCopyFileError(Exception):
 
     def __str__(self):
         return self.errstr
-
-
-# class myJPTableViewModelReadOnly(JPTableViewModelReadOnly):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.ok_icon = JPPub().MainForm.getIcon('yes.ico')
-
-#     def data(self, index, role=Qt.DisplayRole):
-#         r = index.row()
-#         c = index.column()
-#         if c in (7, 8, 9):
-#             if role == Qt.DisplayRole:
-#                 return ''
-#             if role == Qt.TextAlignmentRole:
-#                 return (Qt.AlignLeft | Qt.AlignVCenter)
-#             if role == Qt.DecorationRole:
-#                 if self.TabelFieldInfo.getOnlyData((r, c)):
-#                     return self.ok_icon
-#             else:
-#                 return super().data(index, role=role)
-#         else:
-        # return super().data(index, role=role)
 
 
 class myJPTableViewModelReadOnly(QtSql.QSqlRelationalTableModel):
@@ -218,40 +80,6 @@ class myJPTableViewModelReadOnly(QtSql.QSqlRelationalTableModel):
         else:
             return super().data(index, role=role)
 
-
-# class MyButtonDelegate(QItemDelegate):
-#     def __init__(self, parent=None, dataInfo=None):
-#         super(MyButtonDelegate, self).__init__(parent)
-#         self.dataInfo = dataInfo
-#         self.icon = JPPub().MainForm.getIcon('rosette.ico')
-
-#     def paint(self, painter, option, index):
-#         curCer = self.dataInfo.DataRows[index.row()].Datas[9]
-#         if not self.parent().indexWidget(index) and curCer:
-#             widget = QPushButton(
-#                 self.tr(''),
-#                 self.parent(),
-#                 clicked=self.parent().parent().cellButtonClicked)
-#             widget.setIcon(self.icon)
-#             self.parent().setIndexWidget(index, widget)
-#         else:
-#             widget = self.parent().indexWidget(index)
-#             if widget:
-#                 widget.setGeometry(option.rect)
-
-#     def createEditor(self, parent, option, index):
-#         """有这个空函数覆盖父类的函数，才能使该列不可编辑"""
-#         return
-
-#     def setEditorData(self, editor, index):
-#         return
-
-#     def setModelData(self, editor, model, index):
-#         return
-
-#     def updateEditorGeometry(self, editor, StyleOptionViewItem,
-#                              index: QModelIndex):
-#         editor.setGeometry(StyleOptionViewItem.rect)
 
 
 class Form_Archives(QWidget):
@@ -286,13 +114,10 @@ class Form_Archives(QWidget):
         self.SQL_EditForm_Main = medit_sql
         self.lastSearchSQL = ''
         self.pub = JPPub()
-        # self.pub.UserSaveData.connect(self.UserSaveData)
         self.ui.tableView.doubleClicked.connect(self.mydoubleClicked)
         JPDb().getQSqlDatabase()
-        # q = QtSql.QSqlQuery(sql,db)
         self.Model = myJPTableViewModelReadOnly()
         self.Model.setTable('v_archives')
-        # self.Model.setQuery(q)
         Relation = QtSql.QSqlRelation("t_enumeration", "fItemID", "fTitle")
         self.Model.setRelation(3, Relation)
         self.Model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
@@ -425,10 +250,17 @@ class Form_Archives(QWidget):
         def searchByProject(lst):
             if not lst:
                 return
-            txt = 'archives_pk in (select archives_pk from '
-            txt = txt + 't_archives_project where project_pk in ({}))'
-            txt = txt.format(','.join(lst))
-            self.refreshTableView(txt)
+            whereStr = '1=0'
+            lstStr = ",".join(lst)
+            sql = 'select archives_pk from t_archives_project '
+            sql = sql + 'where project_pk in ({}) group by archives_pk'
+            sql = sql.format(lstStr)
+            lst_ar = JPDb().getDataList(sql)
+            if lst_ar:
+                lst_ar = [str(r[0]) for r in lst_ar]
+            lst_ar_str = ','.join(lst_ar)
+            whereStr = "archives_pk in ({})".format(lst_ar_str)
+            self.refreshTableView(whereStr)
         frm = FormSelectProject()
         frm.selectItemChanged.connect(searchByProject)
         frm.show()
@@ -1047,12 +879,12 @@ class Form_Archives(QWidget):
 #     def getUpdateProjectSQL(self):
 #         result = []
 #         if self.isEditMode:
-#             delSQL = """delete from t_archives_project 
+#             delSQL = """delete from t_archives_project
 #                         where archives_pk=@archives_pk;"""
 #             result.append(delSQL)
 #         for pk in self.ui.tableWidget_Project.keyList:
-#             temp_sql = """INSERT INTO t_archives_project 
-#                         (archives_pk, project_pk) 
+#             temp_sql = """INSERT INTO t_archives_project
+#                         (archives_pk, project_pk)
 #                         VALUES (@archives_pk,{});"""
 #             result.append(temp_sql.format(pk))
 #         return result
@@ -1062,12 +894,12 @@ class Form_Archives(QWidget):
 #         sqls = []
 #         used_sql = """
 #                 select archives_pk from t_additionals_archives
-#                 where file_pk={file_pk} 
+#                 where file_pk={file_pk}
 #                     and archives_pk<>{archives_pk} limit 1;
 #                 """
 #         del_sql = """
 #                 delete from t_additionals_archives
-#                 where archives_pk={archives_pk} 
+#                 where archives_pk={archives_pk}
 #                     and file_pk={file_pk};
 #                 """
 #         ins_file = """

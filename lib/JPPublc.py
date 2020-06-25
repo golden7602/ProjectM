@@ -5,19 +5,21 @@ from Ui.Ui_FormChangePassword import Ui_Dialog as Ui_Dialog_ChnPwd
 from lib.JPFunction import Singleton, md5_passwd
 from lib.JPForms.JPDialogAnimation import DialogAnimation
 from lib.JPDatabase.Database import JPDb
-from PyQt5.QtWidgets import (QMessageBox, QTreeWidgetItem, QProgressDialog)
-from PyQt5.QtGui import (QIcon, QPixmap)
-from PyQt5.QtCore import (QObject, Qt, QThread, pyqtSignal)
+from PyQt5.QtWidgets import (QMessageBox, QTreeWidgetItem, QProgressDialog,
+                             QDesktopWidget, QPushButton, QLabel)
+from PyQt5.QtGui import (QIcon, QPixmap, QGuiApplication)
+from PyQt5.QtCore import (QObject, Qt, QThread, pyqtSignal, QTimer)
 from base64 import b64decode, b64encode
 from os import getcwd, path as ospath
 import json
 from pickle import dumps, loads
-from sys import path as jppath
+#from sys import path as jppath
 import socket
 import time
 import datetime
 import winreg
-jppath.append(getcwd())
+import sys
+# jppath.append(getcwd())
 
 
 class lazy_Property(object):
@@ -32,6 +34,7 @@ class lazy_Property(object):
 
 class FileNotFoundException(Exception):
     '''文件不存在错误'''
+
     def __init__(self, FileName, *args, **kwargs):
         self.FileName = FileName
         self.message = "指定的文件【{}】不存在！".format(FileName)
@@ -143,7 +146,7 @@ class Form_UserLogin(DialogAnimation):
         else:
             # 退出程序
             JPDb().close()
-            exit()
+            sys.exit()
 
 
 class FormPopProgressBar(QProgressDialog):
@@ -153,21 +156,57 @@ class FormPopProgressBar(QProgressDialog):
         self.setMinimum(0)
         self.setMaximum(0)
         self.setValue(0)
+        self.setCancelButtonText("取消")
+        self.setMinimumDuration(800)
         self.setAutoClose(True)
         self.setAutoReset(True)
+        but = self.findChild(QPushButton)
+        if but:
+            but.hide()
+        lab = self.findChild(QLabel)
+        if lab:
+            lab.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+
+    def center(self):
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width() - size.width()) / 2,
+                  (screen.height() - size.height()) / 2)
+        QGuiApplication.processEvents()
 
     def reset(self, maxValue=0):
         self.setMaximum(maxValue)
-        self.setLabelText('准备中.....                                                  ')
+        self.setLabelText(
+            '准备中.....                                                  ')
+        self.center()
         super().reset()
+        QGuiApplication.processEvents()
 
     def dispInfo(self, text='', value=0):
+        if self.value() == -1:
+            self.setValue(0)
         self.setValue(value)
         if text:
             self.setLabelText('正在加载【{}】\n请稍候......'.format(text))
+            self.center()
+            QGuiApplication.processEvents()
 
     def dispInfoStep(self, text=''):
+        if self.value() == -1:
+            self.setValue(0)
+        # print("上一次执行值{}，本次设置文本'{}'，本次设定值{}".format(self.value(),text,self.value()+1))
         self.dispInfo(text, self.value()+1)
+
+    def myClose(self):
+        self.close()
+        QGuiApplication.processEvents()
+
+    def dispDelayed(self, text='', sec=1):
+        '''延时显示信息多少秒后自动关闭'''
+        self.setLabelText(text)
+        QGuiApplication.processEvents()
+        QTimer().singleShot(sec*1000, self.myClose)
+
 
 @Singleton
 class JPUser(QObject):
@@ -270,19 +309,19 @@ class JPPub(QObject):
             self.user = JPUser()
             self.db = JPDb()
             self.__ConfigData = None
-            sql = """
-                SELECT fNMID, fMenuText, fParentId, fCommand, fObjectName, fIcon,
-                        cast(fIsCommandButton AS SIGNED) AS fIsCommandButton
-                FROM sysnavigationmenus
-                WHERE fEnabled=1 AND fNMID>1
-                ORDER BY fDispIndex
-                """
+            sql = ('SELECT fNMID, fMenuText, fParentId, '
+                   'fCommand, fObjectName, fIcon,'
+                   'cast(fIsCommandButton AS SIGNED) AS fIsCommandButton '
+                   'FROM sysnavigationmenus '
+                   'WHERE fEnabled=1 AND fNMID>1 '
+                   'ORDER BY fDispIndex'
+                   )
             self.__sysNavigationMenusDict = self.db.getDict(sql)
 
     @lazy_Property
     def _getEnumDict(self) -> dict:
-        sql = '''select fTypeID,fTitle,fItemID,fSpare1,
-                    fSpare2,fNote from t_enumeration'''
+        sql = ('select fTypeID,fTitle,fItemID,fSpare1,'
+               'fSpare2,fNote from t_enumeration')
         rows = self.db.getDataList(sql)
         return {
             k: [row1[1:] for row1 in rows if row1[0] == k]
@@ -390,7 +429,11 @@ class JPPub(QObject):
         obj_user = JPUser()
         uid = obj_user.currentUserID()
         curuser = [v[1] for v in obj_user.getAllUserList() if v[0] == uid][0]
-        txt = f'{curtime}:\n用户[{curuser}]操作;\n[{curtab}]有新的记录被用户[{curact}],\n编号为[{curpk}]'
+        txt = ('{curtime}:\n用户[{curuser}]操作;\n'
+               '[{curtab}]有新的记录被用户[{curact}],'
+               '\n编号为[{curpk}]')
+        txt = txt.format(curtime=curtime, curuser=curuser,
+                         curtab=curtab, curpk=curp, curact=curact)
         msg = json.dumps((tablename, txt))
         s.sendto(msg.encode('utf-8'), (network, PORT))
         s.close()
@@ -451,7 +494,6 @@ class JPPub(QObject):
 
     def __checkFileExist(self, path):
         return path
-
 
     def getIcoPath(self, fileName: str):
         p = getcwd() + "\\res\\ico\\{}".format(fileName)

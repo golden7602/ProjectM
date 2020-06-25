@@ -171,6 +171,7 @@ class JPFormModelMain(DialogAnimation):
                     conf = JPPub().ConfigData(False)
                     v.Null_prompt_bac_color = conf['Null_prompt_bac_color']
                     v.setFieldInfo(fld_dict[k])
+                    #v.valueChanged.connect(self.onFirstHasDirty)
         # self.setEditState()
 
     def __setReadOnlyFields(self):

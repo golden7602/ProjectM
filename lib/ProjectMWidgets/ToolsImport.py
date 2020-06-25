@@ -61,7 +61,8 @@ class FileToolsImport(QtWidgets.QDialog):
         self.ui.pb.setRange(0, 0)
         self.ui.pb.hide()
         self.ui.label_info.hide()
-        self.exec_()
+        self.MainForm.addForm(self)
+        #self.exec_()
 
     def onComboFileFypeChanged(self, s):
         lst = s.split(",")

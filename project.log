@@ -1,455 +1,1285 @@
-2020-06-04 19:45:08,116 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-04') ORDER BY v_archives.`issuing_date` DESC
-2020-06-04 19:45:09,735 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
-Traceback (most recent call last):
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
-    cur.execute(sql)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
-    result = self._query(query)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
-    conn.query(q)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
-    result.read()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
-    first_packet = self.connection._read_packet()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
-    packet.check_error()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
-    err.raise_mysql_exception(self._data)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
-Stack (most recent call last):
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
-    "__main__", mod_spec)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
-    cli.main()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
-    run()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
-    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
-    pkg_name=pkg_name, script_name=fname)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
-    mod_name, mod_spec, pkg_name, script_name)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "e:\ProjectM\project_m.py", line 25, in <module>
-    app.show()
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
-    sys_exit(self.__app.exec_())
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
-    self.__getStackedWidget(item.jpData)
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
-    frm = form_createor[self.menu_id](self)
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
-    self.actionClick()
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
-    self.dataInfo = JPTabelFieldInfo(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
-    super().__init__(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
-    flds, data = db.getFeildsInfoAndData(sql)
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
-    sql), exc_info=True, stack_info=True)
-2020-06-04 19:46:34,625 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
-Traceback (most recent call last):
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
-    cur.execute(sql)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
-    result = self._query(query)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
-    conn.query(q)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
-    result.read()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
-    first_packet = self.connection._read_packet()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
-    packet.check_error()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
-    err.raise_mysql_exception(self._data)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
-Stack (most recent call last):
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
-    "__main__", mod_spec)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
-    cli.main()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
-    run()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
-    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
-    pkg_name=pkg_name, script_name=fname)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
-    mod_name, mod_spec, pkg_name, script_name)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "e:\ProjectM\project_m.py", line 25, in <module>
-    app.show()
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
-    sys_exit(self.__app.exec_())
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
-    self.__getStackedWidget(item.jpData)
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
-    frm = form_createor[self.menu_id](self)
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
-    self.actionClick()
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
-    self.dataInfo = JPTabelFieldInfo(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
-    super().__init__(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
-    flds, data = db.getFeildsInfoAndData(sql)
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
-    sql), exc_info=True, stack_info=True)
-2020-06-05 09:20:39,627 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:23:12,606 - ERROR - Database.py line[:98] - getFeildsInfoAndData方法执行SQL错：select o.org_pk as 公司编号, , o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级公司, o.statistician as 统计员 , if(o.deleted=1,'删除','') as 删除 from t_org_info as o left join t_org_info as o1 on o.org_parent=o1.org_pk where ( o.org_name like '%%' or o.org_parent like '%%' or o.org_simple_name like '%%' or o.statistician like '%%' ) 
-Traceback (most recent call last):
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 94, in getFeildsInfoAndData
-    cur.execute(sql)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 170, in execute
-    result = self._query(query)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\cursors.py", line 328, in _query
-    conn.query(q)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 517, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
-    result.read()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 1075, in read
-    first_packet = self.connection._read_packet()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
-    packet.check_error()
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\protocol.py", line 220, in check_error
-    err.raise_mysql_exception(self._data)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' o.org_name as 公司名称, o.org_simple_name as 简称, o1.org_name as 上级' at line 1")
-Stack (most recent call last):
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 193, in _run_module_as_main
-    "__main__", mod_spec)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy\__main__.py", line 45, in <module>
-    cli.main()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 430, in main
-    run()
-  File "c:\Users\Administrator.USER-20190111RX\.vscode\extensions\ms-python.python-2020.5.80290\pythonFiles\lib\python\debugpy\wheels\debugpy/..\debugpy\server\cli.py", line 267, in run_file
-    runpy.run_path(options.target, run_name=compat.force_str("__main__"))
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 263, in run_path
-    pkg_name=pkg_name, script_name=fname)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 96, in _run_module_code
-    mod_name, mod_spec, pkg_name, script_name)
-  File "C:\Users\Administrator.USER-20190111RX\AppData\Local\Programs\Python\Python37\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "e:\ProjectM\project_m.py", line 25, in <module>
-    app.show()
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 276, in show
-    sys_exit(self.__app.exec_())
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 173, in treeViewItemClicked
-    self.__getStackedWidget(item.jpData)
-  File "e:\ProjectM\lib\JPForms\JPMainApp.py", line 241, in __getStackedWidget
-    frm = form_createor[self.menu_id](self)
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 74, in __init__
-    self.actionClick()
-  File "e:\ProjectM\lib\ProjectMWidgets\Company.py", line 108, in actionClick
-    self.dataInfo = JPTabelFieldInfo(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 202, in __init__
-    super().__init__(sql)
-  File "e:\ProjectM\lib\JPDatabase\Query.py", line 79, in __init__
-    flds, data = db.getFeildsInfoAndData(sql)
-  File "e:\ProjectM\lib\JPDatabase\Database.py", line 98, in getFeildsInfoAndData
-    sql), exc_info=True, stack_info=True)
-2020-06-05 09:26:01,766 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:48:02,730 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (issuing_date>='2019-06-05') ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:48:08,701 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖状%' or archive_describe like '%奖状%' or issuing like '%奖状%' or fTitle like '%奖状%' or title like '%奖状%' or key_words like '%奖状%' or involve_project like '%奖状%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:49:14,260 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%突出%' or archive_describe like '%突出%' or issuing like '%突出%' or fTitle like '%突出%' or title like '%突出%' or key_words like '%突出%' or involve_project like '%突出%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:50:40,180 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%一业%' or archive_describe like '%一业%' or issuing like '%一业%' or fTitle like '%一业%' or title like '%一业%' or key_words like '%一业%' or involve_project like '%一业%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:50:44,805 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%工业%' or archive_describe like '%工业%' or issuing like '%工业%' or fTitle like '%工业%' or title like '%工业%' or key_words like '%工业%' or involve_project like '%工业%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 09:56:22,062 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%97.5%' or archive_describe like '%97.5%' or issuing like '%97.5%' or fTitle like '%97.5%' or title like '%97.5%' or key_words like '%97.5%' or involve_project like '%97.5%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:09:06,101 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%97.5%' or archive_describe like '%97.5%' or issuing like '%97.5%' or fTitle like '%97.5%' or title like '%97.5%' or key_words like '%97.5%' or involve_project like '%97.5%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:09:15,941 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%工业产值%' or archive_describe like '%工业产值%' or issuing like '%工业产值%' or fTitle like '%工业产值%' or title like '%工业产值%' or key_words like '%工业产值%' or involve_project like '%工业产值%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:09:23,812 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:09:46,657 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:09:54,048 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:10:06,869 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%115%' or archive_describe like '%115%' or issuing like '%115%' or fTitle like '%115%' or title like '%115%' or key_words like '%115%' or involve_project like '%115%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:11:28,188 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:12:59,877 - DEBUG - Archives.py line[:323] - refreshTableView方法执行了一个SQL：SELECT v_archives.`archives_pk`,v_archives.`issuing_date`,v_archives.`archive_no`,relTblAl_3.fTitle,v_archives.`title`,v_archives.`archive_describe`,v_archives.`issuing`,v_archives.`key_words`,v_archives.`is_formalities`,v_archives.`is_task_source`,v_archives.`is_progress`,v_archives.`count_project`,v_archives.`involve_project` FROM v_archives LEFT JOIN t_enumeration relTblAl_3 ON v_archives.`archive_type`=relTblAl_3.fItemID WHERE (archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' ) ORDER BY v_archives.`issuing_date` DESC
-2020-06-05 10:33:15,459 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=2257：
-2020-06-05 10:33:15,473 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2257
-2020-06-05 11:02:03,040 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=2257：
-2020-06-05 11:02:03,084 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2257
-2020-06-05 11:03:50,450 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%包含文件%' or archive_describe like '%包含文件%' or issuing like '%包含文件%' or fTitle like '%包含文件%' or title like '%包含文件%' or key_words like '%包含文件%' or involve_project like '%包含文件%' 
-2020-06-05 12:29:12,575 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`is_task_source`=1 And `title` like '%学校%'：
-2020-06-05 12:29:12,587 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`is_task_source`=1 And `title` like '%学校%'
-2020-06-05 12:34:36,235 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`>1484：
-2020-06-05 12:34:36,258 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`>1484
-2020-06-05 12:34:47,957 - DEBUG - JPFormSearch.py line[:663] - accept方法生成了一个查询条件`archives_pk`=1484：
-2020-06-05 12:34:47,966 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=1484
-2020-06-05 12:45:48,946 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 12:46:24,419 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archives_pk`=2：
-2020-06-05 12:46:24,427 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=2
-2020-06-05 13:38:17,915 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 13:38:24,749 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%党委纪要%' or archive_describe like '%党委纪要%' or issuing like '%党委纪要%' or fTitle like '%党委纪要%' or title like '%党委纪要%' or key_words like '%党委纪要%' or involve_project like '%党委纪要%' 
-2020-06-05 13:39:05,781 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`issuing_date`<'2020-04-05' And `issuing_date`>'2020-02-05'：
-2020-06-05 13:39:05,800 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`issuing_date`<'2020-04-05' And `issuing_date`>'2020-02-05'
-2020-06-05 13:39:50,117 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`fTitle`='集团党委会会议纪要'：
-2020-06-05 13:39:50,150 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`fTitle`='集团党委会会议纪要'
-2020-06-05 14:09:30,005 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archive_describe` like '%（关键字：%'：
-2020-06-05 14:09:30,031 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：`archive_describe` like '%（关键字：%'
-2020-06-05 14:18:15,672 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%会议纪要%' or archive_describe like '%会议纪要%' or issuing like '%会议纪要%' or fTitle like '%会议纪要%' or title like '%会议纪要%' or key_words like '%会议纪要%' or involve_project like '%会议纪要%' 
-2020-06-05 14:22:04,517 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件LENGTH(`archive_describe`)>=20：
-2020-06-05 14:22:04,572 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：LENGTH(`archive_describe`)>=20
-2020-06-05 14:22:36,490 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 14:22:37,803 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 14:30:06,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 14:31:45,045 - DEBUG - Archives.py line[:322] - refreshTableView方法刷新了一个过滤条件：archive_no like '%奖励%' or archive_describe like '%奖励%' or issuing like '%奖励%' or fTitle like '%奖励%' or title like '%奖励%' or key_words like '%奖励%' or involve_project like '%奖励%' 
-2020-06-05 16:07:27,866 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:07:54,688 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:18:48,697 - DEBUG - Image.py line[:404] - Importing BlpImagePlugin
-2020-06-05 16:18:48,701 - DEBUG - Image.py line[:404] - Importing BmpImagePlugin
-2020-06-05 16:18:48,702 - DEBUG - Image.py line[:404] - Importing BufrStubImagePlugin
-2020-06-05 16:18:48,706 - DEBUG - Image.py line[:404] - Importing CurImagePlugin
-2020-06-05 16:18:48,709 - DEBUG - Image.py line[:404] - Importing DcxImagePlugin
-2020-06-05 16:18:48,716 - DEBUG - Image.py line[:404] - Importing DdsImagePlugin
-2020-06-05 16:18:48,721 - DEBUG - Image.py line[:404] - Importing EpsImagePlugin
-2020-06-05 16:18:48,810 - DEBUG - Image.py line[:404] - Importing FitsStubImagePlugin
-2020-06-05 16:18:48,813 - DEBUG - Image.py line[:404] - Importing FliImagePlugin
-2020-06-05 16:18:48,816 - DEBUG - Image.py line[:404] - Importing FpxImagePlugin
-2020-06-05 16:18:48,825 - DEBUG - Image.py line[:407] - Image: failed to import FpxImagePlugin: No module named 'olefile'
-2020-06-05 16:18:48,826 - DEBUG - Image.py line[:404] - Importing FtexImagePlugin
-2020-06-05 16:18:48,830 - DEBUG - Image.py line[:404] - Importing GbrImagePlugin
-2020-06-05 16:18:48,833 - DEBUG - Image.py line[:404] - Importing GifImagePlugin
-2020-06-05 16:18:48,834 - DEBUG - Image.py line[:404] - Importing GribStubImagePlugin
-2020-06-05 16:18:48,840 - DEBUG - Image.py line[:404] - Importing Hdf5StubImagePlugin
-2020-06-05 16:18:48,844 - DEBUG - Image.py line[:404] - Importing IcnsImagePlugin
-2020-06-05 16:18:48,852 - DEBUG - Image.py line[:404] - Importing IcoImagePlugin
-2020-06-05 16:18:48,858 - DEBUG - Image.py line[:404] - Importing ImImagePlugin
-2020-06-05 16:18:48,865 - DEBUG - Image.py line[:404] - Importing ImtImagePlugin
-2020-06-05 16:18:48,870 - DEBUG - Image.py line[:404] - Importing IptcImagePlugin
-2020-06-05 16:18:48,874 - DEBUG - Image.py line[:404] - Importing JpegImagePlugin
-2020-06-05 16:18:48,875 - DEBUG - Image.py line[:404] - Importing Jpeg2KImagePlugin
-2020-06-05 16:18:48,876 - DEBUG - Image.py line[:404] - Importing McIdasImagePlugin
-2020-06-05 16:18:48,879 - DEBUG - Image.py line[:404] - Importing MicImagePlugin
-2020-06-05 16:18:48,891 - DEBUG - Image.py line[:407] - Image: failed to import MicImagePlugin: No module named 'olefile'
-2020-06-05 16:18:48,892 - DEBUG - Image.py line[:404] - Importing MpegImagePlugin
-2020-06-05 16:18:48,896 - DEBUG - Image.py line[:404] - Importing MpoImagePlugin
-2020-06-05 16:18:48,900 - DEBUG - Image.py line[:404] - Importing MspImagePlugin
-2020-06-05 16:18:48,903 - DEBUG - Image.py line[:404] - Importing PalmImagePlugin
-2020-06-05 16:18:48,909 - DEBUG - Image.py line[:404] - Importing PcdImagePlugin
-2020-06-05 16:18:48,912 - DEBUG - Image.py line[:404] - Importing PcxImagePlugin
-2020-06-05 16:18:48,913 - DEBUG - Image.py line[:404] - Importing PdfImagePlugin
-2020-06-05 16:18:48,956 - DEBUG - Image.py line[:404] - Importing PixarImagePlugin
-2020-06-05 16:18:48,963 - DEBUG - Image.py line[:404] - Importing PngImagePlugin
-2020-06-05 16:18:48,965 - DEBUG - Image.py line[:404] - Importing PpmImagePlugin
-2020-06-05 16:18:48,970 - DEBUG - Image.py line[:404] - Importing PsdImagePlugin
-2020-06-05 16:18:48,975 - DEBUG - Image.py line[:404] - Importing SgiImagePlugin
-2020-06-05 16:18:48,979 - DEBUG - Image.py line[:404] - Importing SpiderImagePlugin
-2020-06-05 16:18:48,987 - DEBUG - Image.py line[:404] - Importing SunImagePlugin
-2020-06-05 16:18:48,999 - DEBUG - Image.py line[:404] - Importing TgaImagePlugin
-2020-06-05 16:18:49,008 - DEBUG - Image.py line[:404] - Importing TiffImagePlugin
-2020-06-05 16:18:49,011 - DEBUG - Image.py line[:404] - Importing WebPImagePlugin
-2020-06-05 16:18:49,023 - DEBUG - Image.py line[:404] - Importing WmfImagePlugin
-2020-06-05 16:18:49,027 - DEBUG - Image.py line[:404] - Importing XbmImagePlugin
-2020-06-05 16:18:49,037 - DEBUG - Image.py line[:404] - Importing XpmImagePlugin
-2020-06-05 16:18:49,043 - DEBUG - Image.py line[:404] - Importing XVThumbImagePlugin
-2020-06-05 16:36:11,083 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:37:35,511 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:38:11,386 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:38:45,925 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:39:15,203 - DEBUG - JPFormSearch.py line[:665] - accept方法生成了一个查询条件`archives_pk`=1484：
-2020-06-05 16:39:15,212 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：`archives_pk`=1484
-2020-06-05 16:40:54,625 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:43:20,114 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:45:37,132 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:46:14,044 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:49:42,160 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:50:46,526 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:53:09,740 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:55:03,437 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 16:58:55,496 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:00:44,649 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:02:55,994 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:05:50,021 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:06:12,295 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:06:53,966 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:08:39,386 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:14:55,029 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:15:36,524 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:17:06,072 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:19:04,488 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:21:46,406 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:23:12,813 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:24:01,148 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:26:45,693 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:29:33,353 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:31:36,543 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:33:16,499 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:35:51,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:38:44,911 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:41:24,622 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:43:01,319 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:44:35,881 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:47:02,501 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:50:12,260 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:50:36,666 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:51:42,752 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:55:07,452 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:58:02,150 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:58:52,031 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 17:59:57,769 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:03:19,568 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:05:20,062 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:07:14,368 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:11:58,605 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:12:35,645 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:12:36,800 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:16:54,488 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:18:28,534 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:20:34,045 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:22:16,890 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:26:04,774 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:26:55,203 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:33:24,022 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:35:19,106 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:37:39,492 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:39:31,085 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-05 18:41:04,087 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-06 14:53:31,581 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-06 14:54:46,564 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-06 14:55:18,108 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-06 14:56:13,613 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:10:44,462 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:10:48,046 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:13:20,891 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:13:54,030 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来%' or archive_describe like '%任务来%' or issuing like '%任务来%' or fTitle like '%任务来%' or title like '%任务来%' or key_words like '%任务来%' or involve_project like '%任务来%' 
-2020-06-07 14:14:03,848 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:14:06,809 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:14:07,060 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:17:46,697 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:17:51,123 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:44:26,486 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:47:29,966 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:47:38,751 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:49:28,292 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:49:32,656 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:51:00,192 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:51:05,121 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:52:24,247 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:52:30,739 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:53:24,216 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:53:27,802 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 14:54:58,225 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 14:55:15,878 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-07 15:03:06,475 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 15:05:12,296 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:13:43,854 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:15:02,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:15:05,179 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:16:08,460 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:17:16,835 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:18:07,838 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:22:21,099 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:23:45,836 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:27:50,131 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:30:53,789 - DEBUG - Archives.py line[:360] - refreshTableView方法刷新了一个过滤条件：archive_no like '%来源文件%' or archive_describe like '%来源文件%' or issuing like '%来源文件%' or fTitle like '%来源文件%' or title like '%来源文件%' or key_words like '%来源文件%' or involve_project like '%来源文件%' 
-2020-06-07 23:34:22,611 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:34:44,940 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:34:45,784 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:36:24,982 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-07 23:41:25,279 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 13:50:27,207 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 13:51:41,860 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:16:55,463 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:18:27,766 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:19:43,881 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:20:29,608 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:21:27,921 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:22:02,399 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:23:07,753 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:23:43,618 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:24:54,998 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:53:29,840 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 14:53:32,799 - DEBUG - Archives.py line[:354] - refreshTableView方法刷新了一个过滤条件：archive_no like '%议事%' or archive_describe like '%议事%' or issuing like '%议事%' or fTitle like '%议事%' or title like '%议事%' or key_words like '%议事%' or involve_project like '%议事%' 
-2020-06-08 15:24:16,683 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:25:48,707 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:27:51,516 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:30:13,690 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:36:06,549 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:39:19,492 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:46:05,437 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:49:44,476 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:58:55,688 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 15:58:57,071 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:01:17,593 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:07:11,097 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:08:57,451 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:10:45,766 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:11:27,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:11:28,156 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:44:21,993 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 16:44:50,550 - DEBUG - Archives.py line[:354] - refreshTableView方法刷新了一个过滤条件：archive_no like '%三个经济%' or archive_describe like '%三个经济%' or issuing like '%三个经济%' or fTitle like '%三个经济%' or title like '%三个经济%' or key_words like '%三个经济%' or involve_project like '%三个经济%' 
-2020-06-08 16:57:39,031 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 17:03:10,417 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 17:27:43,905 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:01:51,680 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:02:42,467 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:04:49,881 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:06:17,299 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:06:24,504 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:12:04,201 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:13:27,292 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:13:35,026 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:13:37,403 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:13:37,809 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:14:23,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:14:24,873 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:14:28,493 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:14:37,156 - WARNING - JPWidgets.py line[:138] - 窗体字段【{}】的FieldInfo属性为None，可能是窗体SQl查询语句中没有包含此字段！
-2020-06-08 18:16:26,467 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:16:38,359 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:20:06,552 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:20:07,792 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:20:12,030 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:22:55,628 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:23:00,730 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
-2020-06-08 18:35:09,361 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:41:40,907 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:46:39,590 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:51:14,960 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 18:53:50,616 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:26:33,364 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:28:46,059 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:30:02,536 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:30:42,729 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:31:16,203 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:32:02,562 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:34:42,032 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:34:43,385 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:35:45,029 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:38:21,115 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:39:18,623 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:46:21,139 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:47:20,930 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:48:45,056 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:50:25,622 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:51:38,180 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:52:17,107 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 19:54:04,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:01:48,665 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:02:18,506 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:03:26,184 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:13:10,571 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:14:45,486 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:17:26,136 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:35:09,678 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 20:35:44,687 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
-2020-06-08 23:31:26,078 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-10 14:08:37,897 - WARNING - JPMainApp.py line[:222] - 窗体【{}】中没有找到名为'【{}】'的布局,无法添加按钮。
+2020-06-10 14:08:42,417 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:42,428 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:44,001 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:44,955 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:45,807 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:49,041 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:51,215 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:52,868 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:54,046 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:55,075 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:56,118 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:57,069 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:57,663 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:58,105 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:58,446 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:58,838 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,116 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,127 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,144 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,159 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,177 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,191 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:08:59,230 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,017 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,098 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,111 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,228 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,427 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,656 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,918 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:00,931 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,197 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,407 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,502 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,555 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,651 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,758 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,777 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,800 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,819 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,832 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,851 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,863 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,875 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:09:01,891 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x0000000004B605E0>
+2020-06-10 14:13:46,483 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:14:01,465 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:01,588 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:01,919 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:02,713 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:02,883 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:03,135 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:03,496 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:03,832 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:04,184 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:04,396 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:04,792 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:05,280 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:05,835 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:06,230 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:06,409 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:06,747 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,125 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,156 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,313 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,348 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,363 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,383 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,401 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,416 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,433 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,448 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,467 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,483 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,500 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,515 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,532 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,547 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,563 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,582 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,598 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,611 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,630 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,644 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,660 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,677 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,695 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,715 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,736 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,752 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:07,769 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:11,463 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:12,095 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:14,125 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:14,904 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:15,846 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:17,225 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:19,227 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:19,932 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:21,713 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:22,467 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:23,368 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:23,930 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:24,329 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:24,822 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:25,206 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:25,499 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:25,654 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:25,766 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:25,991 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,125 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,319 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,448 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,532 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,539 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,568 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,848 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:26,884 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,081 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,177 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,207 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,244 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,446 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,625 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,639 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,809 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,858 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,872 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,892 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,907 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,923 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,940 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,957 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,970 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:27,984 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:28,000 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:34,564 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:34,572 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:34,767 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:34,825 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:39,726 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:39,755 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:41,450 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:42,489 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:43,310 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:44,225 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:45,168 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:47,118 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:52,414 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:53,552 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:54,636 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:55,576 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:56,102 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:56,388 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:56,673 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,070 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,440 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,476 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,491 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,611 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,744 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:57,943 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,078 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,243 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,356 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,460 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,659 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,775 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:58,910 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,006 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,040 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,154 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,343 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,439 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,467 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,634 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,651 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,671 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,687 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,705 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,723 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,746 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,759 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,776 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:14:59,792 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:14,439 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:14,467 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:15,478 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:16,164 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:18,904 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:21,007 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:22,328 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:23,697 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:24,751 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:25,489 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:26,395 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:26,926 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:27,364 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:27,870 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,338 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,536 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,680 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,697 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,711 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,728 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,746 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:15:28,760 - DEBUG - ArchivesEdit.py line[:433] - <built-in method format of str object at 0x000000000570D5E0>
+2020-06-10 14:19:40,460 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:19:42,663 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:19:53,439 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:54,579 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:54,662 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:55,470 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:56,190 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:57,105 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:57,947 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:58,350 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:58,774 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:59,148 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:59,575 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:19:59,904 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:00,367 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:00,929 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:01,230 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:01,780 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,052 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,228 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,443 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,585 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,689 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,733 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:02,927 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,052 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,159 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,233 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,336 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,395 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,411 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,427 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,444 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,467 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,486 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,499 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,513 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,531 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,544 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,560 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,575 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,592 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,608 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,628 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,641 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,657 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:20:03,927 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：<class 'lib.ProjectMWidgets.ArchivesEdit.picInfo'>
+2020-06-10 14:21:13,528 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:21:16,686 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:21:31,039 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=078a54dd96713801c1af6a5e8e10bb15
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\078a54dd96713801c1af6a5e8e10bb15_0.jpg',
+                pageIndex=0,
+                originalName='2020.06.04 重大事项承办单&备案表（高新区第十初中）+高科鱼化+备案编号18.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:31,799 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=078a54dd96713801c1af6a5e8e10bb15
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\078a54dd96713801c1af6a5e8e10bb15_1.jpg',
+                pageIndex=1,
+                originalName='2020.06.04 重大事项承办单&备案表（高新区第十初中）+高科鱼化+备案编号18.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:32,481 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_0.jpg',
+                pageIndex=0,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:32,753 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_1.jpg',
+                pageIndex=1,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:33,208 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_2.jpg',
+                pageIndex=2,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:33,598 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_3.jpg',
+                pageIndex=3,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:33,756 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_4.jpg',
+                pageIndex=4,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:34,033 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_5.jpg',
+                pageIndex=5,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:34,513 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_6.jpg',
+                pageIndex=6,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:34,992 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_7.jpg',
+                pageIndex=7,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:35,355 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_8.jpg',
+                pageIndex=8,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:35,796 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_9.jpg',
+                pageIndex=9,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:36,511 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_10.jpg',
+                pageIndex=10,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:37,276 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_11.jpg',
+                pageIndex=11,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:37,700 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_12.jpg',
+                pageIndex=12,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:37,935 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=49fda69545606acf3b5d9b565ec4ccef
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\49fda69545606acf3b5d9b565ec4ccef_13.jpg',
+                pageIndex=13,
+                originalName='任务来源：学校 高新区管委会下达2019-2020学校建设计划的通知.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,187 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_0.jpg',
+                pageIndex=0,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,199 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_1.jpg',
+                pageIndex=1,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,210 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_2.jpg',
+                pageIndex=2,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,224 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_3.jpg',
+                pageIndex=3,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,240 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_4.jpg',
+                pageIndex=4,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,254 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=a0b4e05ebaf2a5eb1fe15951d313a886
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\a0b4e05ebaf2a5eb1fe15951d313a886_5.jpg',
+                pageIndex=5,
+                originalName='附件2-西安高新区教育局关于新建学校项目交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,275 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=3822754ee36e4d5fc5f259998aa9b319
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='附件3-2019年10月3日西安高新区学校建设协调推进工作领导小组通知.jpg',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,278 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_0.jpg',
+                pageIndex=0,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,296 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_1.jpg',
+                pageIndex=1,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,315 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_2.jpg',
+                pageIndex=2,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,334 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_3.jpg',
+                pageIndex=3,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,361 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_4.jpg',
+                pageIndex=4,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,381 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_5.jpg',
+                pageIndex=5,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,401 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_6.jpg',
+                pageIndex=6,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,435 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=cf75a98848c5678e1c409fc2100edff9
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\cf75a98848c5678e1c409fc2100edff9_7.jpg',
+                pageIndex=7,
+                originalName='附件4-西安高新区关于加快推进装配式建筑发展的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,457 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_0.jpg',
+                pageIndex=0,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,473 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_1.jpg',
+                pageIndex=1,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,489 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_2.jpg',
+                pageIndex=2,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,506 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_3.jpg',
+                pageIndex=3,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,519 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_4.jpg',
+                pageIndex=4,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,535 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=1f02050ea013190d43b4be9df2a81e65
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\1f02050ea013190d43b4be9df2a81e65_5.jpg',
+                pageIndex=5,
+                originalName='附件5-高新区关于推广装配式装修的意见.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,552 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=268af756bd7306e17e2078f117c0fb4e
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\268af756bd7306e17e2078f117c0fb4e_0.jpg',
+                pageIndex=0,
+                originalName='高新区教育局关于新建学校交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,566 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=268af756bd7306e17e2078f117c0fb4e
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\268af756bd7306e17e2078f117c0fb4e_1.jpg',
+                pageIndex=1,
+                originalName='高新区教育局关于新建学校交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,585 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=268af756bd7306e17e2078f117c0fb4e
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\268af756bd7306e17e2078f117c0fb4e_2.jpg',
+                pageIndex=2,
+                originalName='高新区教育局关于新建学校交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,599 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=268af756bd7306e17e2078f117c0fb4e
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\268af756bd7306e17e2078f117c0fb4e_3.jpg',
+                pageIndex=3,
+                originalName='高新区教育局关于新建学校交工范围的函.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,617 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=160da41b709574199208a39180622fe7
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\160da41b709574199208a39180622fe7_0.jpg',
+                pageIndex=0,
+                originalName='关于投资建设西安高新区第十初级中学备案的请示（2020.0330）.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,638 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=160da41b709574199208a39180622fe7
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\160da41b709574199208a39180622fe7_1.jpg',
+                pageIndex=1,
+                originalName='关于投资建设西安高新区第十初级中学备案的请示（2020.0330）.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,652 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=160da41b709574199208a39180622fe7
+                Md5Fileindex=0,
+                viewPicPath='E:\ProjectM\cache\160da41b709574199208a39180622fe7_2.jpg',
+                pageIndex=2,
+                originalName='关于投资建设西安高新区第十初级中学备案的请示（2020.0330）.pdf',
+                iconPath=False,
+                originalPath=''
+2020-06-10 14:21:38,665 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=f4e4d1837ea321b2a37c06e3d93b20cf
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区第十初级中学项目建议书.docx',
+                iconPath=E:\ProjectM\res\ico\word.png,
+                originalPath='\\192.168.1.20\jhglb\archives\f4e4d1837ea321b2a37c06e3d93b20cf.docx'
+2020-06-10 14:27:21,608 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:27:23,744 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:27:31,591 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:28:33,319 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:28:33,344 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:28:47,892 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:28:47,921 - DEBUG - ArchivesEdit.py line[:434] - 得到一个图片信息准备加载：Type: picInfo
+                md5FileName=56c25746ddac31edfed469620d469fcb
+                Md5Fileindex=0,
+                viewPicPath='',
+                pageIndex=0,
+                originalName='西安高新区重大科技项目申报表 报创发局李斌强.xls',
+                iconPath=E:\ProjectM\res\ico\excel.png,
+                originalPath='\\192.168.1.20\jhglb\archives\56c25746ddac31edfed469620d469fcb.xls'
+2020-06-10 14:31:16,776 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:44:38,319 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 14:56:08,382 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 15:00:24,326 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 15:09:08,328 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 15:18:26,161 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 15:57:22,812 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 16:14:18,927 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 16:15:11,493 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 16:45:04,486 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:01:47,846 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:03:11,699 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:05:00,628 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:06:21,865 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:06:52,558 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:15:26,608 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:15:59,383 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:19:32,171 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:20:21,935 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:20:56,771 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:21:33,860 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:23:05,990 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:26:33,967 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:27:19,131 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:32:46,510 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:33:35,924 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:33:37,694 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:33:43,753 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:34:19,835 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:37:34,356 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:40:58,107 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:43:33,057 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:46:15,440 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:48:27,608 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-10 18:50:24,702 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 08:41:35,524 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:05:12,758 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:07:09,481 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:08:17,600 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:11:30,816 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:15:26,068 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:19:48,075 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:24:27,551 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:24:29,432 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 09:34:56,035 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:38:04,878 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:39:40,031 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:40:43,480 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:44:42,052 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%学校%' or archive_describe like '%学校%' or issuing like '%学校%' or fTitle like '%学校%' or title like '%学校%' or key_words like '%学校%' or involve_project like '%学校%' 
+2020-06-11 10:45:39,529 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%任务来源%' or archive_describe like '%任务来源%' or issuing like '%任务来源%' or fTitle like '%任务来源%' or title like '%任务来源%' or key_words like '%任务来源%' or involve_project like '%任务来源%' 
+2020-06-11 10:46:43,308 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:46:44,667 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:51:25,044 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:52:18,681 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 10:55:20,099 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 11:29:06,833 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 11:51:47,365 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 13:25:08,671 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:11:49,312 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:13:17,769 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:13:53,710 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:21:03,015 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:21:06,345 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 16:32:22,967 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 17:25:47,492 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 17:27:37,052 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 17:37:35,092 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 17:57:05,243 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 17:59:01,464 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:00:35,233 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:01:00,905 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archives_pk in (1484,1853)
+2020-06-11 18:04:37,936 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:04:53,875 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archives_pk in (1484,1853)
+2020-06-11 18:05:33,598 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：1
+2020-06-11 18:06:18,687 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:06:19,876 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:06:25,728 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：1
+2020-06-11 18:06:25,732 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：2
+2020-06-11 18:06:26,555 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：3
+2020-06-11 18:06:26,900 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：4
+2020-06-11 18:06:27,774 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：5
+2020-06-11 18:06:28,246 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：6
+2020-06-11 18:06:28,654 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：7
+2020-06-11 18:06:30,542 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：8
+2020-06-11 18:06:31,539 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：9
+2020-06-11 18:06:32,543 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：10
+2020-06-11 18:06:32,639 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：11
+2020-06-11 18:06:34,308 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：12
+2020-06-11 18:06:34,708 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：13
+2020-06-11 18:06:35,086 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：14
+2020-06-11 18:06:35,381 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：15
+2020-06-11 18:06:35,567 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：16
+2020-06-11 18:06:35,644 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：17
+2020-06-11 18:06:35,648 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：18
+2020-06-11 18:06:35,651 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：19
+2020-06-11 18:06:35,656 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：20
+2020-06-11 18:06:36,802 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：21
+2020-06-11 18:06:36,888 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：22
+2020-06-11 18:06:37,195 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：23
+2020-06-11 18:06:37,275 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：24
+2020-06-11 18:06:37,321 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：25
+2020-06-11 18:06:37,326 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：26
+2020-06-11 18:06:37,328 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：27
+2020-06-11 18:06:37,332 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：28
+2020-06-11 18:06:37,336 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：29
+2020-06-11 18:06:37,428 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：30
+2020-06-11 18:06:37,505 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：31
+2020-06-11 18:06:37,668 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：32
+2020-06-11 18:06:37,809 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：33
+2020-06-11 18:06:37,814 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：34
+2020-06-11 18:06:37,820 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：35
+2020-06-11 18:06:37,849 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：36
+2020-06-11 18:06:37,927 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：37
+2020-06-11 18:06:37,999 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：38
+2020-06-11 18:06:38,116 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：39
+2020-06-11 18:06:38,123 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：40
+2020-06-11 18:06:38,126 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：41
+2020-06-11 18:06:38,217 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：42
+2020-06-11 18:06:38,276 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：43
+2020-06-11 18:06:38,281 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：44
+2020-06-11 18:06:38,328 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：45
+2020-06-11 18:08:43,559 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:23:24,539 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:23:26,136 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:25:04,099 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:25:28,345 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:25:47,179 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：1
+2020-06-11 18:26:16,243 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：2
+2020-06-11 18:26:54,688 - DEBUG - ArchivesEdit.py line[:468] - 得到一个图片信息准备加载：1
+2020-06-11 18:36:02,271 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-11 18:36:03,980 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：1
+2020-06-11 18:36:03,983 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：2
+2020-06-11 18:36:03,992 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：3
+2020-06-11 18:37:46,918 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：1
+2020-06-11 18:37:46,932 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：2
+2020-06-11 18:37:47,003 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：3
+2020-06-11 18:37:47,016 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：4
+2020-06-12 08:28:36,220 - WARNING - JPMainApp.py line[:222] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 08:59:24,921 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 08:59:52,986 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:00:20,355 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:00:29,985 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:00:41,553 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:01:07,000 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:06:00,494 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:08:18,691 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：1
+2020-06-12 09:08:18,697 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：2
+2020-06-12 09:08:19,764 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：3
+2020-06-12 09:08:20,172 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：4
+2020-06-12 09:08:20,599 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：5
+2020-06-12 09:08:21,024 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：6
+2020-06-12 09:08:21,367 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：7
+2020-06-12 09:08:22,279 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：8
+2020-06-12 09:08:23,144 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：9
+2020-06-12 09:08:24,044 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：10
+2020-06-12 09:08:25,039 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：11
+2020-06-12 09:08:25,479 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：12
+2020-06-12 09:08:26,276 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：13
+2020-06-12 09:08:26,491 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：14
+2020-06-12 09:08:26,638 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：15
+2020-06-12 09:08:26,820 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：16
+2020-06-12 09:08:26,924 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：17
+2020-06-12 09:08:26,927 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：18
+2020-06-12 09:08:26,928 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：19
+2020-06-12 09:08:26,931 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：20
+2020-06-12 09:08:26,985 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：21
+2020-06-12 09:08:26,990 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：22
+2020-06-12 09:08:26,999 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：23
+2020-06-12 09:08:27,154 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：24
+2020-06-12 09:08:27,435 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：25
+2020-06-12 09:08:27,547 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：26
+2020-06-12 09:08:27,595 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：27
+2020-06-12 09:08:27,599 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：28
+2020-06-12 09:08:27,603 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：29
+2020-06-12 09:08:27,608 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：30
+2020-06-12 09:08:27,630 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：31
+2020-06-12 09:08:27,700 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：32
+2020-06-12 09:08:27,923 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：33
+2020-06-12 09:08:28,062 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：34
+2020-06-12 09:08:28,064 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：35
+2020-06-12 09:08:28,068 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：36
+2020-06-12 09:08:28,071 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：37
+2020-06-12 09:08:28,292 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：38
+2020-06-12 09:08:28,394 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：39
+2020-06-12 09:08:28,398 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：40
+2020-06-12 09:08:28,401 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：41
+2020-06-12 09:08:28,519 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：42
+2020-06-12 09:08:28,523 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：43
+2020-06-12 09:08:28,526 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：44
+2020-06-12 09:08:28,558 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：45
+2020-06-12 09:21:14,104 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：1
+2020-06-12 09:21:14,108 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：2
+2020-06-12 09:21:14,129 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：3
+2020-06-12 09:21:14,132 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：4
+2020-06-12 09:21:14,187 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：5
+2020-06-12 09:21:14,288 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：6
+2020-06-12 09:21:14,403 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：7
+2020-06-12 09:21:14,497 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：8
+2020-06-12 09:21:14,550 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：9
+2020-06-12 09:21:14,700 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：10
+2020-06-12 09:21:14,916 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：11
+2020-06-12 09:21:15,098 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：12
+2020-06-12 09:21:15,203 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：13
+2020-06-12 09:21:15,256 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：14
+2020-06-12 09:21:15,351 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：15
+2020-06-12 09:21:15,355 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：16
+2020-06-12 09:21:15,359 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：17
+2020-06-12 09:21:15,363 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：18
+2020-06-12 09:21:15,366 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：19
+2020-06-12 09:21:15,368 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：20
+2020-06-12 09:21:15,583 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：21
+2020-06-12 09:21:15,587 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：22
+2020-06-12 09:21:15,590 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：23
+2020-06-12 09:21:15,592 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：24
+2020-06-12 09:21:15,595 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：25
+2020-06-12 09:21:15,789 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：26
+2020-06-12 09:21:15,795 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：27
+2020-06-12 09:21:15,931 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：28
+2020-06-12 09:21:15,935 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：29
+2020-06-12 09:21:16,118 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：30
+2020-06-12 09:21:16,124 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：31
+2020-06-12 09:21:16,900 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：32
+2020-06-12 09:21:17,216 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：33
+2020-06-12 09:21:17,646 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：34
+2020-06-12 09:21:18,054 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：35
+2020-06-12 09:21:18,801 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：36
+2020-06-12 09:21:19,667 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：37
+2020-06-12 09:21:20,644 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：38
+2020-06-12 09:21:21,598 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：39
+2020-06-12 09:21:22,580 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：40
+2020-06-12 09:21:23,019 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：41
+2020-06-12 09:21:23,502 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：42
+2020-06-12 09:21:23,887 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：43
+2020-06-12 09:21:23,930 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：44
+2020-06-12 09:21:24,017 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：45
+2020-06-12 09:21:24,167 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：46
+2020-06-12 09:21:24,171 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：47
+2020-06-12 09:21:24,174 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：48
+2020-06-12 09:21:24,177 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：49
+2020-06-12 09:21:24,180 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：50
+2020-06-12 09:21:24,430 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：51
+2020-06-12 09:21:24,503 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：52
+2020-06-12 09:21:24,687 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：53
+2020-06-12 09:21:24,766 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：54
+2020-06-12 09:21:24,932 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：55
+2020-06-12 09:21:25,063 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：56
+2020-06-12 09:21:25,180 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：57
+2020-06-12 09:21:25,329 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：58
+2020-06-12 09:21:25,428 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：59
+2020-06-12 09:21:25,430 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：60
+2020-06-12 09:21:25,436 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：61
+2020-06-12 09:21:25,439 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：62
+2020-06-12 09:21:25,441 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：63
+2020-06-12 09:21:25,446 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：64
+2020-06-12 09:21:25,448 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：65
+2020-06-12 09:21:25,451 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：66
+2020-06-12 09:21:25,456 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：67
+2020-06-12 09:22:34,105 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 09:22:35,880 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：1
+2020-06-12 09:22:35,883 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：2
+2020-06-12 09:22:35,894 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：3
+2020-06-12 09:22:35,950 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：4
+2020-06-12 09:22:35,959 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：5
+2020-06-12 09:22:36,059 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：6
+2020-06-12 09:22:36,065 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：7
+2020-06-12 09:22:36,197 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：8
+2020-06-12 09:22:36,332 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：9
+2020-06-12 09:22:36,336 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：10
+2020-06-12 09:22:36,459 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：11
+2020-06-12 09:22:36,463 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：12
+2020-06-12 09:22:36,492 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：13
+2020-06-12 09:22:36,505 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：14
+2020-06-12 09:22:36,598 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：15
+2020-06-12 09:22:36,715 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：16
+2020-06-12 09:22:36,753 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：17
+2020-06-12 09:22:36,756 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：18
+2020-06-12 09:22:36,785 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：19
+2020-06-12 09:22:36,801 - DEBUG - ArchivesEdit.py line[:472] - 得到一个图片信息准备加载：20
+2020-06-12 11:57:32,823 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 11:58:25,889 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 11:58:29,423 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：1
+2020-06-12 11:58:29,427 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：2
+2020-06-12 11:58:29,500 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：3
+2020-06-12 11:58:29,512 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：4
+2020-06-12 11:58:29,577 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：5
+2020-06-12 11:58:29,585 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：6
+2020-06-12 11:58:29,726 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：7
+2020-06-12 11:58:29,902 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：8
+2020-06-12 11:58:30,161 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：9
+2020-06-12 11:58:30,166 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：10
+2020-06-12 11:58:30,312 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：11
+2020-06-12 11:58:30,319 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：12
+2020-06-12 11:58:30,377 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：13
+2020-06-12 11:58:30,392 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：14
+2020-06-12 11:58:30,494 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：15
+2020-06-12 11:58:30,601 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：16
+2020-06-12 11:58:30,640 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：17
+2020-06-12 11:58:30,644 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：18
+2020-06-12 11:58:30,690 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：19
+2020-06-12 11:58:30,707 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：20
+2020-06-12 11:58:47,911 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：1
+2020-06-12 11:58:47,916 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：2
+2020-06-12 11:58:48,732 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：3
+2020-06-12 11:58:53,807 - DEBUG - Archives.py line[:361] - refreshTableView方法刷新了一个过滤条件：archive_no like '%学校%' or archive_describe like '%学校%' or issuing like '%学校%' or fTitle like '%学校%' or title like '%学校%' or key_words like '%学校%' or involve_project like '%学校%' 
+2020-06-12 11:58:55,979 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：1
+2020-06-12 11:58:55,983 - DEBUG - ArchivesEdit.py line[:476] - 得到一个图片信息准备加载：2
+2020-06-12 12:03:40,262 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:03:41,851 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：1
+2020-06-12 12:03:41,855 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：2
+2020-06-12 12:03:41,883 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：3
+2020-06-12 12:03:41,912 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：4
+2020-06-12 12:03:42,003 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：5
+2020-06-12 12:03:42,019 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：6
+2020-06-12 12:03:42,118 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：7
+2020-06-12 12:03:42,121 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：8
+2020-06-12 12:03:42,263 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：9
+2020-06-12 12:03:42,273 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：10
+2020-06-12 12:03:42,411 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：11
+2020-06-12 12:03:42,414 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：12
+2020-06-12 12:03:42,443 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：13
+2020-06-12 12:03:42,457 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：14
+2020-06-12 12:03:42,618 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：15
+2020-06-12 12:03:42,718 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：16
+2020-06-12 12:03:42,726 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：17
+2020-06-12 12:03:42,730 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：18
+2020-06-12 12:03:42,756 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：19
+2020-06-12 12:03:42,772 - DEBUG - ArchivesEdit.py line[:477] - 得到一个图片信息准备加载：20
+2020-06-12 12:04:34,740 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:04:36,560 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：1
+2020-06-12 12:04:36,563 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：2
+2020-06-12 12:04:36,571 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：3
+2020-06-12 12:04:36,604 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：4
+2020-06-12 12:04:36,616 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：5
+2020-06-12 12:04:36,640 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：6
+2020-06-12 12:04:36,723 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：7
+2020-06-12 12:04:36,832 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：8
+2020-06-12 12:04:36,936 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：9
+2020-06-12 12:04:36,980 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：10
+2020-06-12 12:04:37,118 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：11
+2020-06-12 12:04:37,121 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：12
+2020-06-12 12:04:37,156 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：13
+2020-06-12 12:04:37,174 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：14
+2020-06-12 12:04:37,342 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：15
+2020-06-12 12:04:37,447 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：16
+2020-06-12 12:04:37,451 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：17
+2020-06-12 12:04:37,454 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：18
+2020-06-12 12:04:37,486 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：19
+2020-06-12 12:04:37,503 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：20
+2020-06-12 12:05:51,347 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:05:53,203 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：1
+2020-06-12 12:05:53,204 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：2
+2020-06-12 12:05:53,262 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：3
+2020-06-12 12:05:53,272 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：4
+2020-06-12 12:05:53,307 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：5
+2020-06-12 12:05:53,312 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：6
+2020-06-12 12:05:53,424 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：7
+2020-06-12 12:05:53,552 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：8
+2020-06-12 12:05:53,700 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：9
+2020-06-12 12:05:53,705 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：10
+2020-06-12 12:05:53,839 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：11
+2020-06-12 12:05:53,845 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：12
+2020-06-12 12:05:53,881 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：13
+2020-06-12 12:05:53,897 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：14
+2020-06-12 12:05:54,055 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：15
+2020-06-12 12:05:54,148 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：16
+2020-06-12 12:05:54,151 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：17
+2020-06-12 12:05:54,153 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：18
+2020-06-12 12:05:54,184 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：19
+2020-06-12 12:05:54,203 - DEBUG - ArchivesEdit.py line[:478] - 得到一个图片信息准备加载：20
+2020-06-12 12:14:52,131 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:30:30,883 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:31:15,767 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:31:23,918 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：1
+2020-06-12 12:31:23,921 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：2
+2020-06-12 12:31:23,928 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：3
+2020-06-12 12:31:23,963 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：4
+2020-06-12 12:31:23,974 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：5
+2020-06-12 12:31:23,990 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：6
+2020-06-12 12:31:24,121 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：7
+2020-06-12 12:31:24,244 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：8
+2020-06-12 12:31:24,359 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：9
+2020-06-12 12:31:24,411 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：10
+2020-06-12 12:31:24,549 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：11
+2020-06-12 12:31:24,553 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：12
+2020-06-12 12:31:24,588 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：13
+2020-06-12 12:31:24,605 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：14
+2020-06-12 12:31:24,764 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：15
+2020-06-12 12:31:24,815 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：16
+2020-06-12 12:31:24,863 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：17
+2020-06-12 12:31:24,865 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：18
+2020-06-12 12:31:24,894 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：19
+2020-06-12 12:31:24,910 - DEBUG - ArchivesEdit.py line[:479] - 得到一个图片信息准备加载：20
+2020-06-12 12:39:49,625 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:39:51,529 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:39:51,532 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:39:51,537 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:39:52,668 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:39:52,774 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:39:52,844 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:39:53,029 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:39:53,223 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:39:53,411 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:39:53,415 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:39:53,603 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:39:53,607 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:39:53,667 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:39:53,680 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:39:53,841 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:39:53,928 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:39:53,934 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:39:53,937 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:39:53,977 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:39:53,995 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:41:14,126 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:41:15,889 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:41:15,892 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:41:15,950 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:41:15,958 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:41:15,971 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:41:15,999 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:41:16,111 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:41:16,220 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:41:16,385 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:41:16,390 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:41:16,521 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:41:16,526 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:41:16,559 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:41:16,575 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:41:16,732 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:41:16,795 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:41:16,835 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:41:16,836 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:41:16,871 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:41:16,888 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:44:17,694 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:44:19,223 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:44:19,225 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:44:19,254 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:44:19,264 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:44:19,282 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:44:19,383 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:44:19,483 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:44:19,486 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:44:19,628 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:44:19,631 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:44:19,769 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:44:19,776 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:44:19,804 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:44:19,820 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:44:19,986 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:44:20,073 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:44:20,076 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:44:20,079 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:44:20,812 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:44:20,831 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:46:17,948 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:46:20,587 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:46:20,588 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:46:20,598 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:46:20,627 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:46:20,640 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:46:20,664 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:46:20,752 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:46:20,858 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:46:20,996 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:46:21,001 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:46:21,131 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:46:21,134 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:46:21,166 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:46:21,180 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:46:21,334 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:46:21,425 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:46:21,427 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:46:21,430 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:46:21,460 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:46:21,476 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:47:58,628 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:47:59,862 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:47:59,864 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:47:59,947 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:47:59,952 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:47:59,959 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:48:00,028 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:48:00,112 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:48:00,220 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:48:01,220 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:48:01,224 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:48:01,360 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:48:01,365 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:48:01,398 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:48:01,414 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:48:01,569 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:48:01,625 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:48:01,664 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:48:01,667 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:48:01,699 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:48:01,712 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:49:16,435 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:49:17,790 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:49:17,793 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:49:17,799 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:49:17,832 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:49:17,833 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:49:17,871 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:49:17,956 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:49:18,067 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:49:18,211 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:49:18,214 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:49:18,344 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:49:18,348 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:49:18,382 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:49:18,398 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:49:18,495 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:49:18,611 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:49:18,652 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:49:18,661 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:49:18,696 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:49:18,712 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:52:21,881 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:52:24,998 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:52:26,191 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：1
+2020-06-12 12:52:26,193 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：2
+2020-06-12 12:52:26,264 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：3
+2020-06-12 12:52:26,296 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：4
+2020-06-12 12:52:26,335 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：5
+2020-06-12 12:52:26,424 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：6
+2020-06-12 12:52:26,427 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：7
+2020-06-12 12:52:26,536 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：8
+2020-06-12 12:52:26,683 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：9
+2020-06-12 12:52:26,687 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：10
+2020-06-12 12:52:26,825 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：11
+2020-06-12 12:52:26,831 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：12
+2020-06-12 12:52:26,865 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：13
+2020-06-12 12:52:26,883 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：14
+2020-06-12 12:52:27,046 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：15
+2020-06-12 12:52:27,142 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：16
+2020-06-12 12:52:27,144 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：17
+2020-06-12 12:52:27,145 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：18
+2020-06-12 12:52:27,176 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：19
+2020-06-12 12:52:27,191 - DEBUG - ArchivesEdit.py line[:481] - 得到一个图片信息准备加载：20
+2020-06-12 12:59:18,534 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 12:59:19,979 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 12:59:57,950 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 13:00:01,143 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 13:00:02,364 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 13:00:02,368 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 13:00:02,375 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 13:00:28,016 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 13:00:29,700 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 13:00:29,752 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 13:00:29,759 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 13:00:29,788 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：4
+2020-06-12 13:00:29,803 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：5
+2020-06-12 13:00:29,912 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：6
+2020-06-12 13:00:29,915 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：7
+2020-06-12 13:00:30,023 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：8
+2020-06-12 13:00:30,166 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：9
+2020-06-12 13:00:30,167 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：10
+2020-06-12 13:00:30,305 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：11
+2020-06-12 13:00:30,311 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：12
+2020-06-12 13:00:30,478 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：13
+2020-06-12 13:00:30,494 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：14
+2020-06-12 13:00:30,710 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：15
+2020-06-12 13:00:30,755 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：16
+2020-06-12 13:00:30,760 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：17
+2020-06-12 13:00:30,763 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：18
+2020-06-12 13:00:30,796 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：19
+2020-06-12 13:00:30,812 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：20
+2020-06-12 13:31:01,895 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 13:31:01,902 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 13:31:01,914 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 13:31:01,930 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：4
+2020-06-12 13:31:01,996 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：5
+2020-06-12 13:31:02,394 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：6
+2020-06-12 13:31:02,524 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：7
+2020-06-12 13:31:02,651 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：8
+2020-06-12 13:31:02,788 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：9
+2020-06-12 13:31:02,792 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：10
+2020-06-12 13:31:02,924 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：11
+2020-06-12 13:31:02,927 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：12
+2020-06-12 13:31:02,960 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：13
+2020-06-12 13:31:02,976 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：14
+2020-06-12 13:31:03,128 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：15
+2020-06-12 13:31:03,223 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：16
+2020-06-12 13:31:03,224 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：17
+2020-06-12 13:31:03,226 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：18
+2020-06-12 13:31:03,260 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：19
+2020-06-12 13:31:03,278 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：20
+2020-06-12 13:43:56,279 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 13:43:57,910 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 13:43:57,911 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 13:43:57,969 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 13:43:57,980 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：4
+2020-06-12 13:43:58,017 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：5
+2020-06-12 13:43:58,029 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：6
+2020-06-12 13:43:58,139 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：7
+2020-06-12 13:43:58,256 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：8
+2020-06-12 13:43:58,398 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：9
+2020-06-12 13:43:58,401 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：10
+2020-06-12 13:43:58,532 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：11
+2020-06-12 13:43:58,536 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：12
+2020-06-12 13:43:58,567 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：13
+2020-06-12 13:43:58,585 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：14
+2020-06-12 13:43:58,737 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：15
+2020-06-12 13:43:58,825 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：16
+2020-06-12 13:43:58,828 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：17
+2020-06-12 13:43:58,831 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：18
+2020-06-12 13:43:58,863 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：19
+2020-06-12 13:43:58,878 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：20
+2020-06-12 15:35:46,921 - WARNING - JPMainApp.py line[:223] - 窗体【Form】中没有找到名为'【Layout_Button】'的布局,无法添加按钮。
+2020-06-12 15:36:36,240 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 15:36:36,269 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 15:36:36,296 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 15:37:02,437 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 15:37:02,689 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 15:37:02,937 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
+2020-06-12 15:54:14,671 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：1
+2020-06-12 15:54:14,950 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：2
+2020-06-12 15:54:15,204 - DEBUG - ArchivesEdit.py line[:484] - 得到一个图片信息准备加载：3
