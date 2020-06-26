@@ -357,7 +357,7 @@ class JpSubTableModel(QSqlTableModel):
             return self._columnInfomation[col][0]
         else:
             return super().headerData(col, QtOrientation, role=role)
-    def remo
+
     def appendRow(self):
         '''在末尾增加一行，增加前调用beforeInsertRowCheckData函数检查尾行合法性'''
         if self.rowCount() == 0:
