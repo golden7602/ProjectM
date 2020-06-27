@@ -1,0 +1,9 @@
+{
+    "python.linting.enabled": true,
+    "python.formatting.provider": "yapf",
+    "python.linting.flake8Enabled": true,
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true,
+    "pythonIndent.useTabOnHangingIndent": true,
+    "python.linting.pylintEnabled": false
+}

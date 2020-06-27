@@ -1,0 +1,7 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+#myWidget{
+    background: gold;
+    border-radius: 8px ;
+    border: 1px solid red;
+}

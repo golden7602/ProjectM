@@ -3,15 +3,14 @@ import sys
 
 from PyQt5.QtSql import QSqlRelationalDelegate, QSqlTableModel
 from PyQt5 import QtSql, QtCore, QtWidgets
-from PyQt5.QtWidgets import (QWidget,
-                             QLabel, QComboBox, QDataWidgetMapper,
+from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QDataWidgetMapper,
                              QApplication, QDialog)
 
 from lib.JPDatabase.Database import JPDb
 from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtCore import (Qt, QRect, pyqtSlot, QModelIndex,
-                          QAbstractTableModel, QVariant,
-                          QSize, QAbstractItemModel)
+                          QAbstractTableModel, QVariant, QSize,
+                          QAbstractItemModel)
 from lib.JPDevelopmenter.Ui.Ui_FormReportManage import Ui_Dialog
 from functools import singledispatch
 from enum import IntEnum
@@ -19,40 +18,47 @@ from PyQt5.QtPrintSupport import QPrinter
 import logging
 
 
+class JPEditDataMode(IntEnum):
+    readOnlyMode = 0
+    editMode = 1
+    newMode = 2
+
+
 def _lstPaperSize():
-    return [[5, 'A0', '841 x 1189 mm'],
-            [6, 'A1', '594 x 841 mm'],
-            [7, 'A2', '420 x 594 mm'],
-            [8, 'A3', '297 x 420 mm'],
-            [0, 'A4', '210 x 297 mm, 8.26 x 11.69 英寸'],
-            [9, 'A5', '148 x 210 mm'],
-            [10, 'A6', '105 x 148 mm'],
-            [11, 'A7', '74 x 105 mm'],
-            [12, 'A8', '52 x 74 mm'],
-            [13, 'A9', '37 x 52 mm'],
-            [14, 'B0', '1000 x 1414 mm'],
-            [15, 'B1', '707 x 1000 mm'],
-            [16, 'B10', '31 x 44 mm'],
-            [17, 'B2', '500 x 707 mm'],
-            [18, 'B3', '353 x 500 mm'],
-            [19, 'B4', '250 x 353 mm'],
-            [1, 'B5', '176 x 250 mm, 6.93 x 9.84 英寸'],
-            [20, 'B6', '125 x 176 mm'],
-            [21, 'B7', '88 x 125 mm'],
-            [22, 'B8', '62 x 88 mm'],
-            [23, 'B9', '33 x 62 mm'],
-            [24, 'C5E', '163 x 229 mm'],
-            [25, 'Comm10E', '105 x 241 mm, U.S. Common 10 Envelope'],
-            [30, 'Custom', 'Unknown, or a user defined size.'],
-            [26, 'DLE', '110 x 220 mm'],
-            [4, 'Executive', '7.5 x 10 英寸, 190.5 x 254 mm'],
-            [27, 'Folio', '210 x 330 mm'],
-            [44, 'JisB6', ''],
-            [28, 'Ledger', '431.8 x 279.4 mm'],
-            [3, 'Legal', '8.5 x 14 英寸, 215.9 x 355.6 mm'],
-            [2, 'Letter', '8.5 x 11 英寸, 215.9 x 279.4 mm'],
-            [29, 'Tabloid', '279.4 x 431.8 mm'],
-            ]
+    return [
+        [5, 'A0', '841 x 1189 mm'],
+        [6, 'A1', '594 x 841 mm'],
+        [7, 'A2', '420 x 594 mm'],
+        [8, 'A3', '297 x 420 mm'],
+        [0, 'A4', '210 x 297 mm, 8.26 x 11.69 英寸'],
+        [9, 'A5', '148 x 210 mm'],
+        [10, 'A6', '105 x 148 mm'],
+        [11, 'A7', '74 x 105 mm'],
+        [12, 'A8', '52 x 74 mm'],
+        [13, 'A9', '37 x 52 mm'],
+        [14, 'B0', '1000 x 1414 mm'],
+        [15, 'B1', '707 x 1000 mm'],
+        [16, 'B10', '31 x 44 mm'],
+        [17, 'B2', '500 x 707 mm'],
+        [18, 'B3', '353 x 500 mm'],
+        [19, 'B4', '250 x 353 mm'],
+        [1, 'B5', '176 x 250 mm, 6.93 x 9.84 英寸'],
+        [20, 'B6', '125 x 176 mm'],
+        [21, 'B7', '88 x 125 mm'],
+        [22, 'B8', '62 x 88 mm'],
+        [23, 'B9', '33 x 62 mm'],
+        [24, 'C5E', '163 x 229 mm'],
+        [25, 'Comm10E', '105 x 241 mm, U.S. Common 10 Envelope'],
+        [30, 'Custom', 'Unknown, or a user defined size.'],
+        [26, 'DLE', '110 x 220 mm'],
+        [4, 'Executive', '7.5 x 10 英寸, 190.5 x 254 mm'],
+        [27, 'Folio', '210 x 330 mm'],
+        [44, 'JisB6', ''],
+        [28, 'Ledger', '431.8 x 279.4 mm'],
+        [3, 'Legal', '8.5 x 14 英寸, 215.9 x 355.6 mm'],
+        [2, 'Letter', '8.5 x 11 英寸, 215.9 x 279.4 mm'],
+        [29, 'Tabloid', '279.4 x 431.8 mm'],
+    ]
     # def setItemDelegate(self, _JPRelationalDelegate: _JPRelationalDelegate)
 
 
@@ -72,19 +78,18 @@ class _JPRelationalDelegate(QSqlRelationalDelegate):
         if isinstance(QWidget, QComboBox):
             model = QWidget.model()
             for i in range(model.rowCount()):
-                if QModelIndex.data() == model.data(
-                        model.createIndex(i, 0), Qt.EditRole):
+                if QModelIndex.data() == model.data(model.createIndex(i, 0),
+                                                    Qt.EditRole):
                     QWidget.setCurrentIndex(i)
         else:
             return super().setEditorData(QWidget, QModelIndex)
 
-    def setModelData(self, editor: QWidget,
-                     model: QAbstractItemModel,
+    def setModelData(self, editor: QWidget, model: QAbstractItemModel,
                      index: QModelIndex):
         '''保存前更新基础model的数据'''
         mapperModel = self.mapper.model()
-        mapperIndex = mapperModel.createIndex(
-            self.mapper.currentIndex(), index.column())
+        mapperIndex = mapperModel.createIndex(self.mapper.currentIndex(),
+                                              index.column())
 
         if isinstance(editor, QtWidgets.QComboBox):
             mod = editor.model()
@@ -96,7 +101,8 @@ class _JPRelationalDelegate(QSqlRelationalDelegate):
 
 
 class _JPComboBoxModel(QAbstractTableModel):
-    def __init__(self, parent=None,
+    def __init__(self,
+                 parent=None,
                  dataList: list = [],
                  displayColumn: int = 0,
                  modelColumn: int = 1):
@@ -128,8 +134,11 @@ class JPMainTableModel(QtSql.QSqlRelationalTableModel):
     _tp = (QtWidgets.QLineEdit, QtWidgets.QDateEdit, QtWidgets.QComboBox,
            QtWidgets.QTextEdit, QtWidgets.QCheckBox, QtWidgets.QSpinBox)
 
-    def __init__(self, parent: QWidget, tableName: str,
-                 filter: str = None, db=QtSql.QSqlDatabase()):
+    def __init__(self,
+                 parent: QWidget,
+                 tableName: str,
+                 filter: str = None,
+                 db=QtSql.QSqlDatabase()):
         '''用于窗体模式进行数据编辑时的主窗体数据模型。\n
         会自动增加数据映射器，但是外键字段要使用addComboBoxData方法增加列表文字。
         最后要调用tofirst()方法定位编辑的记录。\n
@@ -144,8 +153,7 @@ class JPMainTableModel(QtSql.QSqlRelationalTableModel):
         rec = self.record()
         self.mapper = QDataWidgetMapper(parent)
         self.mapper.setModel(self)
-        self.mapper.setItemDelegate(
-            _JPRelationalDelegate(parent, self.mapper))
+        self.mapper.setItemDelegate(_JPRelationalDelegate(parent, self.mapper))
         self.mapper.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
         for i in range(rec.count()):
             widget = parent.findChild(self._tp, rec.fieldName(i))
@@ -157,7 +165,8 @@ class JPMainTableModel(QtSql.QSqlRelationalTableModel):
         # 定位到模型中第一条记录
         self.mapper.toFirst()
 
-    def addComboBoxData(self, fieldName: str,
+    def addComboBoxData(self,
+                        fieldName: str,
                         dataList: list,
                         displayColumn: int = 0,
                         modelColumn: int = 1):
@@ -168,12 +177,19 @@ class JPMainTableModel(QtSql.QSqlRelationalTableModel):
         '''
         widget = self.parent.findChild(QComboBox, fieldName)
         if widget is not None:
-            widget.setModel(_JPComboBoxModel(
-                widget, dataList, displayColumn, modelColumn))
+            widget.setModel(
+                _JPComboBoxModel(widget, dataList, displayColumn, modelColumn))
             self.mapper.addMapping(widget, self.fieldIndex(fieldName))
 
     def saveData(self):
         pass
+
+
+class _ReadOnlyDelegate(QtWidgets.QItemDelegate):
+    '''内部类，生成一个只读代理，设置给需要只读的列'''
+
+    def createEditor(self, *args, **kwargs):
+        return
 
 
 class JpSubTableModel(QSqlTableModel):
@@ -185,7 +201,8 @@ class JpSubTableModel(QSqlTableModel):
     Min = 2
     Average = 3
 
-    def __init__(self, parent: QWidget,
+    def __init__(self,
+                 parent: QWidget,
                  tableName: str,
                  tableView: QtWidgets.QTableView,
                  parentPkFieldName: str = '',
@@ -205,6 +222,10 @@ class JpSubTableModel(QSqlTableModel):
         self.setEditStrategy(QSqlTableModel.OnRowChange)
         self.beforeInsert.connect(self._beforeInsert)
         self._setPrimaryKeyInfomation()
+        self._readOnlyDelegate = _ReadOnlyDelegate()
+        # 是否已经设置过只读列
+        self._readOnlyDelegateSeted = False
+        self._EditDataMode = JPEditDataMode.readOnlyMode
 
     def _setPrimaryKeyInfomation(self):
         ''''查找表的主键信息'''
@@ -242,36 +263,52 @@ class JpSubTableModel(QSqlTableModel):
         col = self.fieldIndex(fieldName)
         self._StatisticsColumn.append([fieldName, col, mode])
 
-    # def flags(self, index):
-    #     return Qt.NoItemFlags
+    def setEditDataMode(self, mode: JPEditDataMode):
+        self._EditDataMode = mod
+
     def select(self):
         result = super().select()
+        # 统计信息
         for r in self._StatisticsColumn:
             self._StatisticsAndEmit(r[1])
+        # 设置只读列
+        if not self._readOnlyDelegateSeted:
+            if self._EditDataMode == JPEditDataMode.readOnlyMode:
+                for i, r in enumerate(self._columnInfomation):
+                    if r[1] == -1:
+                        self._tableView.setItemDelegateForColumn(
+                            i, self._readOnlyDelegate)
+            else:
+                for i, r in enumerate(self._columnInfomation):
+                    self._tableView.setItemDelegateForColumn(
+                        i, self._readOnlyDelegate)
+            self._readOnlyDelegateSeted = True
         return result
 
     def data(self, index: QtCore.QModelIndex, role=Qt.DisplayRole):
         r = index.row()
         c = index.column()
         # 防止读取大于设定列的数据
-        if index.column() > (len(self._columnInfomation)-1):
+        if index.column() > (len(self._columnInfomation) - 1):
             return super().data(index, role=role)
         y = self._columnInfomation[c][1]
         if role == Qt.DisplayRole:
             formatString = self._columnInfomation[c][3]
             v = None
+
             # 计算列的情形
             if y == -1:
                 try:
                     v = self.calculateCell(self.record(r), index)
                 except Exception:
-                    logging.getLogger().warning(
-                        "第{}行[{}]计算错误".format(r, self._columnInfomation[c][0]))
+                    logging.getLogger().warning("第{}行[{}]计算错误".format(
+                        r, self._columnInfomation[c][0]))
                     v = None
             # 非计算列的情形
             else:
                 v = super().data(self.createIndex(r, y), role=role)
-            # 格式化
+
+            # 格式化显示数据
             if formatString and v:
                 return formatString.format(v)
             else:
@@ -279,6 +316,7 @@ class JpSubTableModel(QSqlTableModel):
                     return str(v)
                 else:
                     return QVariant()
+
         elif role == Qt.EditRole:
             if y != -1:
                 return super().data(self.createIndex(r, y), role=role)
@@ -302,7 +340,8 @@ class JpSubTableModel(QSqlTableModel):
         return False
 
     def connectNotify(self, signal):
-        # 当信号被绑定到一个函数时，模型中存在数据时，发送一次信号
+        # 当统计信号被绑定到一个函数时，如果模型中存在数据
+        # 则计算一次统计信息并发送一次统计信号(初始化用户界面中引用的统计值)
         if (QtCore.QMetaMethod(signal).name() == b'StatisticsValueChange'
                 and self.rowCount() > 0):
             for r in self._StatisticsColumn:
@@ -310,7 +349,7 @@ class JpSubTableModel(QSqlTableModel):
         return super().connectNotify(signal)
 
     def _StatisticsAndEmit(self, column: int):
-        # 任何setData方法后，内部计算统计并发射统计信号
+        # 任何时候程序调用了setData方法后，内部计算统计信息并发射统计信号
         for s in self._StatisticsColumn:
             fieldName = s[0]
             modelColumn = s[1]
@@ -324,7 +363,7 @@ class JpSubTableModel(QSqlTableModel):
                 if mode == JpSubTableModel.Sum:
                     result = sum(data)
                 if mode == JpSubTableModel.Average:
-                    result = sum(data)//len(data)
+                    result = sum(data) // len(data)
                 if mode == JpSubTableModel.Min:
                     result = min(data)
                 if mode == JpSubTableModel.Max:
@@ -333,13 +372,12 @@ class JpSubTableModel(QSqlTableModel):
 
     def calculateCell(self, record: QtSql.QSqlRecord,
                       index: QtCore.QModelIndex):
-        '''如果有计算列，此函数要覆盖，此函数返回计算列的值\n
+        '''如果有计算列，此函数要被覆盖，此函数应返回计算列的值\n
         参数：index要计算的值位于tableView中的位置用于判断\n
-        record当前记录的值用于计算
+        record代表当前行所有列的数据，可使用record.field(fieldName).value()取任意字段值进行计算
         '''
         lst = [r for r in self._columnInfomation if r[1] == -1]
-        s = ('存在计算列，但没有实现calculateCell函数。'
-             '该函数给定当前行数据及列名，应该返回计算列的值')
+        s = ('存在计算列，但没有实现calculateCell函数。' '该函数给定当前行数据及列名，应该返回计算列的值')
         if lst:
             raise UserWarning(s)
 
@@ -347,8 +385,8 @@ class JpSubTableModel(QSqlTableModel):
         '''槽函数，用于主表当前行变化时更新视图数据\n
         此函数接收一个值，为主表主键值
         '''
-        pkn=self._parentPkFieldName
-        self.setFilter("{}={}".format(pkn,parentPkValue))
+        pkn = self._parentPkFieldName
+        self.setFilter("{}={}".format(pkn, parentPkValue))
         self.select()
         self.resetInternalData()
 
@@ -362,7 +400,7 @@ class JpSubTableModel(QSqlTableModel):
         '''在末尾增加一行，增加前调用beforeInsertRowCheckData函数检查尾行合法性'''
         if self.rowCount() == 0:
             return super().insertRow(self.rowCount())
-        if self.beforeInsertRowCheckData(self.record(self.rowCount()-1)):
+        if self.beforeInsertRowCheckData(self.record(self.rowCount() - 1)):
             result = super().insertRow(self.rowCount())
             if result:
                 self._tableView.selectRow(self.rowCount())
@@ -370,7 +408,11 @@ class JpSubTableModel(QSqlTableModel):
         else:
             return False
 
+    def removeRow(self, row: int):
+        pass
+
     def _beforeInsert(self, record: QtSql.QSqlRecord):
+        '''增加一行之前给主表键值列赋值'''
         if self.filter():
             fn, fv = self.filter().split('=')
             record.setValue(fn, int(fv))
@@ -378,9 +420,7 @@ class JpSubTableModel(QSqlTableModel):
 
     def beforeInsertRowCheckData(self, lastRecord: QtSql.QSqlRecord):
         '''增加新行前检查最后一行数据的有效性'''
-        s = ('没有重写增加新行前的检查函数,'
-             'lastRecord参数为最后一行的数据用于判断'
-             '本函数返回值为True时增加行')
+        s = ('没有重写增加新行前的检查函数,' 'lastRecord参数为最后一行的数据用于判断' '本函数返回值为True时增加行')
         raise UserWarning('没有重写增加新行前的检查函数,本函数返回值为True时增加行')
 
 
@@ -396,9 +436,10 @@ class myLabel(QLabel):
         if self.mousePressed:
             x = e.pos().x()
             y = e.pos().y()
-            print('move old x={},y={};new x={},y={}'.format(self.x, self.y, x, y))
-            newx = self.rect.x()+(x-self.x)
-            newy = self.rect.y()+(y-self.y)
+            print('move old x={},y={};new x={},y={}'.format(
+                self.x, self.y, x, y))
+            newx = self.rect.x() + (x - self.x)
+            newy = self.rect.y() + (y - self.y)
             self.setGeometry(newx, newy, self.rect.width(), self.rect.height())
             self.rect = self.geometry()
             self.x = x
@@ -421,10 +462,12 @@ class myLabel(QLabel):
 
 class mySubTableModel(JpSubTableModel):
     def calculateCell(self, record, index):
-        return (record.value(10)+record.value(11)+record.value(12)+record.value(13))
+        return (record.value(10) + record.value(11) + record.value(12) +
+                record.value(13))
 
     def beforeInsertRowCheckData(self, rec):
-        if not all((rec.field(11).value(), rec.field(12).value(), rec.field(13).value(), rec.field(10).value())):
+        if not all((rec.field(11).value(), rec.field(12).value(),
+                    rec.field(13).value(), rec.field(10).value())):
             print("fX不能为0")
         else:
             return True
@@ -446,8 +489,8 @@ class myReportUi():
         self.ModelReport = JPMainTableModel(self.Dialog, 'sysreports')
         zhixing = [['{} {}'.format(r[1], r[2]), r[0]] for r in _lstPaperSize()]
         self.ModelReport.addComboBoxData('fReportPaperSize', zhixing)
-        self.ModelReport.addComboBoxData(
-            'fReportPaperOrientation', [['横排', 1], ['竖排', 0]])
+        self.ModelReport.addComboBoxData('fReportPaperOrientation',
+                                         [['横排', 1], ['竖排', 0]])
         self.ModelReport.toFirst()
         # self.subModel=QSqlTableModel(self.Dialog)
         # self.subModel.setTable('sysreports')
@@ -455,22 +498,21 @@ class myReportUi():
         # self.subModel.select()
         # self.ui.tableView.setModel(self.subModel)
 
-        self.subModel = mySubTableModel(
-            self.Dialog, 'sysreports', self.ui.tableView, 'fReportPk')
-        self.subModel.addViewColumn(
-            "编号", 'pk', Qt.AlignRight | Qt.AlignVCenter)
-        self.subModel.addViewColumn(
-            "条目名称", 'fItemName')
-        self.subModel.addViewColumn(
-            "左", 'fX', Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
-        self.subModel.addViewColumn(
-            "右", 'fY', Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
-        self.subModel.addViewColumn(
-            "上", 'fWidth', Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
-        self.subModel.addViewColumn(
-            "下", 'fHeight', Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
-        self.subModel.addViewColumn(
-            "计算", '', Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
+        self.subModel = mySubTableModel(self.Dialog, 'sysreports',
+                                        self.ui.tableView, 'fReportPk')
+        self.subModel.addViewColumn("编号", 'pk',
+                                    Qt.AlignRight | Qt.AlignVCenter)
+        self.subModel.addViewColumn("条目名称", 'fItemName')
+        self.subModel.addViewColumn("左", 'fX', Qt.AlignRight | Qt.AlignVCenter,
+                                    '{:,.2f}')
+        self.subModel.addViewColumn("右", 'fY', Qt.AlignRight | Qt.AlignVCenter,
+                                    '{:,.2f}')
+        self.subModel.addViewColumn("上", 'fWidth',
+                                    Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
+        self.subModel.addViewColumn("下", 'fHeight',
+                                    Qt.AlignRight | Qt.AlignVCenter, '{:,.2f}')
+        self.subModel.addViewColumn("计算", '', Qt.AlignRight | Qt.AlignVCenter,
+                                    '{:,.2f}')
         self.subModel.addStatisticsColumn("fX", JpSubTableModel.Sum)
         self.subModel.setFilter('fReportPk=1')
         self.subModel.select()
@@ -505,8 +547,8 @@ class myReportUi():
         row = self.Mapper.currentIndex()
         self.ModelReport.removeRow(row)
         self.ModelReport.submitAll()
-        if row+1 > self.ModelReport.rowCount():
-            row = self.ModelReport.rowCount()-1
+        if row + 1 > self.ModelReport.rowCount():
+            row = self.ModelReport.rowCount() - 1
         self.Mapper.setCurrentIndex(row)
         self.addMode = False
 
@@ -553,8 +595,8 @@ class myReportUi():
         query = QtSql.QSqlQuery()
         query.exec(sql)
         while (query.next()):
-            self.ui.ReportSelect1.addItem(query.value(
-                'fItemName'), query.value('pk'))
+            self.ui.ReportSelect1.addItem(query.value('fItemName'),
+                                          query.value('pk'))
 
     # def initReportView(self):
     #     self.Model = QtSql.QSqlRelationalTableModel()
